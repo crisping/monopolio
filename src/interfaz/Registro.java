@@ -135,6 +135,21 @@ public class Registro extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnAdelanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdelanteActionPerformed
+        if(txtAlias.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Ingrese  el alias");
+                return;
+            }
+            
+            if(txtContraseña.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Ingrese  la contraseña");
+                return;
+            }
+            
+            if(txtContraseña2.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Confirme  la contraseña");
+                return;
+            }
+        
         if(verificarAlias() && verificarPass()){
             DataBase db = new DataBase();
             if(db.conexion()){
@@ -145,9 +160,6 @@ public class Registro extends javax.swing.JFrame {
             }else
                 JOptionPane.showMessageDialog(this, "No pudo conectar a la BD");
         }
-        
-        Perfil.main(null);
-        this.dispose();
     }//GEN-LAST:event_btnAdelanteActionPerformed
     
     public boolean verificarAlias(){
