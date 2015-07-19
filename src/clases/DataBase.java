@@ -5,10 +5,11 @@
  */
 package clases;
 
-import java.beans.Statement;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,6 +20,7 @@ public class DataBase {
     private Connection connection = null;
     private ResultSet rs = null;
     private Statement s = null;
+    private String sql = null;
     //Metodos
     public boolean conexion(){
         if (connection != null) {
@@ -34,9 +36,10 @@ public class DataBase {
 
             if (connection != null) {
                 System.out.println("Conectando a Base de Datos...");
+                s= connection.createStatement();
             }
         } catch (Exception e) {
-            System.out.println("Problemas de Conexión");
+            System.out.println("Problemas de Conexión: "+e.getMessage());
             return false;
         }
         return true;
@@ -54,5 +57,43 @@ public class DataBase {
         }
         return false;      
     }
+    
+    public boolean autenticarUsuario(String alias, String contraseña){
+        if (connection != null) {
+            try {
+                sql = "SELECT 1 FROM usuarios WHERE alias='"+alias+"' AND contraseña='"+contraseña+"'";
+                
+                rs = s.executeQuery(sql);
+                
+                return rs.next();
+                
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
+        }
+        return false;      
+    }
+    
+    public boolean registrarUsuario(String alias, String contraseña){
+        if (connection != null) {
+            try {
+                sql = "INSERT INTO usuarios VALUES ('"+alias+"','"+contraseña+"',TRUE)";
+                
+                return s.executeUpdate(sql)>0;
+                
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
+        }
+        return false;      
+    }
+    
+    
+    
+    
     
 }
