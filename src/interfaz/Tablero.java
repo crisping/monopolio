@@ -18,6 +18,8 @@ public class Tablero extends javax.swing.JFrame {
      * Creates new form tablero
      */
     
+    private int casillas_recorridas;
+    
     private int[] posicionFicha1 = new int[40];
     private int posicion_ficha1;
     private int esquina = 1;
@@ -205,7 +207,11 @@ public class Tablero extends javax.swing.JFrame {
         avanzarCasillas = valorDado1 + valorDado2;
        
         posicion_ficha1 = posicion_ficha1 + avanzarCasillas;         
-        System.out.print(posicion_ficha1);      
+        System.out.println(posicion_ficha1);      
+        
+        casillas_recorridas = casillas_recorridas + avanzarCasillas;
+        System.out.println(casillas_recorridas);
+        
         
         cadena1 = String.valueOf(valorDado1);
         cadena2 = String.valueOf(valorDado2);
