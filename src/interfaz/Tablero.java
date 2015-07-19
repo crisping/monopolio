@@ -17,18 +17,17 @@ public class Tablero extends javax.swing.JFrame {
     /**
      * Creates new form tablero
      */
-    private int total1;
-    private int total2;
     
-    private int turno = 0;
-    private int jugarDado = 0;
-    
-    private int casillas_recorridas;
+    private int turno = 1;
+    private int jugarDado = 1;
     
     private int posicion_ficha1;
     private int posicion_ficha2;
+    
     private int esquina = 1;
+    private int esquina2 = 1;
     private int paso;
+    private int paso2;
     
     private String cadena1 = "";
     private String cadena2 = "";
@@ -161,7 +160,7 @@ public class Tablero extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelTableroMouseClicked
 
     private void jLabelFicha1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFicha1MouseClicked
-        if (turno == 1 && jugarDado == 1){
+       /* if (turno == 1 && jugarDado == 1){
             if (esquina == 1 || esquina == 5){
                 if (paso == 4 || paso == 1){
                     posicion_ficha1 = posicion_ficha1 - 10;
@@ -219,21 +218,21 @@ public class Tablero extends javax.swing.JFrame {
                 }         
             }
         }       
-       /*turno = 2;
+       turno = 2;
         cadena4 = String.valueOf(turno);
         txtTurno.setText(cadena4);*/
     }//GEN-LAST:event_jLabelFicha1MouseClicked
 
     private void btnJugarDadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarDadoActionPerformed
         
-        if (jugarDado >= 1){
-            jugarDado = 1;           
+        if (jugarDado >= 2){
+            jugarDado = 2;           
         }else{
             jugarDado = jugarDado + 1;
         }
         
-        if (turno >= 1){
-            turno = 1;
+        if (turno >= 2){
+            turno = 2;
         }else{
             turno = turno +1;
         }
@@ -246,20 +245,20 @@ public class Tablero extends javax.swing.JFrame {
         
         avanzarCasillas = valorDado1 + valorDado2;
         
-        if (turno == 1){
+       /* if (turno == 1){
             posicion_ficha1 = posicion_ficha1 + avanzarCasillas;      
             System.out.println("turno: " + turno + " avanzar casillas: " + avanzarCasillas);
-        }
-        
-        /*if (turno == 2){
-            posicion_ficha2 = posicion_ficha2 + avanzarCasillas;
-            total2 = total2 + posicion_ficha2;
-            System.out.println("turno: " + turno + " avanzar casillas " + posicion_ficha2+ " Total: " + total2);
         }*/
+        
+        if (turno == 2){
+            posicion_ficha2 = posicion_ficha2 + avanzarCasillas;
+         
+            System.out.println("turno: " + turno + " avanzar casillas " + avanzarCasillas);
+        }
         
         //System.out.println(posicion_ficha1);      
         
-        casillas_recorridas = casillas_recorridas + avanzarCasillas;
+      
        // System.out.println(casillas_recorridas);
         
         
@@ -277,7 +276,7 @@ public class Tablero extends javax.swing.JFrame {
     }//GEN-LAST:event_btnJugarDadoActionPerformed
 
     private void jLabelFicha2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFicha2MouseClicked
-        /*if (turno == 2 && jugarDado == 2){
+        if (turno == 2 && jugarDado == 2){
             if (esquina == 1 || esquina == 5){
                 if (paso == 4 || paso == 1){
                     posicion_ficha2 = posicion_ficha2 - 10;
@@ -335,7 +334,7 @@ public class Tablero extends javax.swing.JFrame {
                 }         
             }
         }
-        turno = 1;
+        /*turno = 1;
         cadena4 = String.valueOf(turno);
         txtTurno.setText(cadena4);*/
     }//GEN-LAST:event_jLabelFicha2MouseClicked
