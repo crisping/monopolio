@@ -17,18 +17,24 @@ public class Tablero extends javax.swing.JFrame {
     /**
      * Creates new form tablero
      */
+    private int total1;
+    private int total2;
+    
+    private int turno = 0;
+    private int jugarDado = 0;
     
     private int casillas_recorridas;
     
-    private int[] posicionFicha1 = new int[40];
     private int posicion_ficha1;
+    private int posicion_ficha2;
     private int esquina = 1;
     private int paso;
     
     private String cadena1 = "";
     private String cadena2 = "";
     private String cadena3 = "";
-
+    private String cadena4 = "";
+    
     private int avanzarCasillas;
     private int valorDado1;
     private int valorDado2;
@@ -36,7 +42,7 @@ public class Tablero extends javax.swing.JFrame {
     public Tablero() {
         
         initComponents();
-  
+        
     }
 
     /**
@@ -52,9 +58,9 @@ public class Tablero extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabelAdorno = new javax.swing.JLabel();
         jLabelFicha1 = new javax.swing.JLabel();
+        jLabelFicha5 = new javax.swing.JLabel();
         jLabelFicha2 = new javax.swing.JLabel();
-        jLabelFicha3 = new javax.swing.JLabel();
-        jLabelFicha4 = new javax.swing.JLabel();
+        jLabelFicha6 = new javax.swing.JLabel();
         jLabelTablero = new javax.swing.JLabel();
         btnVolver = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -63,6 +69,8 @@ public class Tablero extends javax.swing.JFrame {
         txtDado2 = new javax.swing.JTextField();
         txtAvanzarCasillas = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtTurno = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -81,14 +89,19 @@ public class Tablero extends javax.swing.JFrame {
         });
         getContentPane().add(jLabelFicha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 610, -1, -1));
 
-        jLabelFicha2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/p_azul.png"))); // NOI18N
-        getContentPane().add(jLabelFicha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 610, -1, -1));
+        jLabelFicha5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/p_azul.png"))); // NOI18N
+        getContentPane().add(jLabelFicha5, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 610, -1, -1));
 
-        jLabelFicha3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/p_naranja.png"))); // NOI18N
-        getContentPane().add(jLabelFicha3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 660, -1, 30));
+        jLabelFicha2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/p_naranja.png"))); // NOI18N
+        jLabelFicha2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabelFicha2MouseClicked(evt);
+            }
+        });
+        getContentPane().add(jLabelFicha2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 660, -1, 30));
 
-        jLabelFicha4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/p_verde.png"))); // NOI18N
-        getContentPane().add(jLabelFicha4, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 660, -1, -1));
+        jLabelFicha6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/p_verde.png"))); // NOI18N
+        getContentPane().add(jLabelFicha6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 660, -1, -1));
 
         jLabelTablero.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/8463965759_f04799072d_b.jpg"))); // NOI18N
         jLabelTablero.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -128,6 +141,10 @@ public class Tablero extends javax.swing.JFrame {
         jLabel1.setText("Avanzar Casillas");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 390, -1, -1));
 
+        jLabel2.setText("Turno");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 520, -1, -1));
+        getContentPane().add(txtTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 490, 50, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -144,59 +161,82 @@ public class Tablero extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelTableroMouseClicked
 
     private void jLabelFicha1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFicha1MouseClicked
-        if (esquina == 1){
-            jLabelFicha1.setLocation(620-(avanzarCasillas*56),635);
-            if (posicion_ficha1 > 10){
-                esquina = 2;
-                paso = 1;
+        if (turno == 1 && jugarDado == 1){
+            if (esquina == 1 || esquina == 5){
+                if (paso == 4 || paso == 1){
+                    posicion_ficha1 = posicion_ficha1 - 10;
+                    paso = 10;
+                }
+
+                if (posicion_ficha1 > 10){
+                    esquina = 2;
+                    paso = 1;
+                }else{
+                    jLabelFicha1.setLocation(620-(posicion_ficha1*56),635);
+                }
             }
-        }
-        
-        if (esquina == 2){
-            if (paso == 1){
-                posicion_ficha1 = posicion_ficha1 - 10;
-                jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
-                paso = 2;
+
+            if (esquina == 2){
+                if (paso == 1){
+                    posicion_ficha1 = posicion_ficha1 - 10;
+                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
+                    paso = 2;
+                }
+
+                if (posicion_ficha1 > 10){
+                    esquina = 3;
+                }else{
+                    jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
+                }        
+                //jLabelFicha1.setLocation(30,635);
             }
-            
-            if (posicion_ficha1 > 10){
-                esquina = 3;
-            }else{
-                jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
-            }        
-            //jLabelFicha1.setLocation(30,635);
-        }
-        
-        if(esquina == 3){
-            if (paso == 2){
-                posicion_ficha1 = posicion_ficha1 - 10;
-                jLabelFicha1.setLocation(50,40);
-                paso = 3;
+
+            if(esquina == 3){
+                if (paso == 2){
+                    posicion_ficha1 = posicion_ficha1 - 10;
+                   // jLabelFicha1.setLocation(60,30);
+                    paso = 3;
+                }
+
+                if (posicion_ficha1 > 10){
+                    esquina = 4;
+                }else{
+                    jLabelFicha1.setLocation(60+(55*posicion_ficha1),30);
+                }
             }
-            
-            if (posicion_ficha1 > 10){
-                esquina = 4;
-            }else{
-                jLabelFicha1.setLocation(80*posicion_ficha1,40);
+
+            if(esquina == 4){
+                if(paso == 3){
+                    posicion_ficha1 = posicion_ficha1 - 10;
+                   // jLabelFicha1.setLocation(40, 40);
+                    paso = 4;
+                }
+
+                if(posicion_ficha1 > 10){
+                    esquina = 5;
+                }else{
+                    jLabelFicha1.setLocation(635, 60+(55*posicion_ficha1));
+                }         
             }
-        }
-        
-        if(esquina == 4){
-            if(paso == 3){
-                posicion_ficha1 = posicion_ficha1 - 10;
-                jLabelFicha1.setLocation(40, 40);
-                paso = 4;
-            }
-            
-            if(posicion_ficha1 > 10){
-                esquina = 5;
-            }else{
-                jLabelFicha1.setLocation(620, 40*posicion_ficha1);
-            }         
-        }
+        }       
+       /*turno = 2;
+        cadena4 = String.valueOf(turno);
+        txtTurno.setText(cadena4);*/
     }//GEN-LAST:event_jLabelFicha1MouseClicked
 
     private void btnJugarDadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarDadoActionPerformed
+        
+        if (jugarDado >= 1){
+            jugarDado = 1;           
+        }else{
+            jugarDado = jugarDado + 1;
+        }
+        
+        if (turno >= 1){
+            turno = 1;
+        }else{
+            turno = turno +1;
+        }
         
         Random r1 = new Random();
         Random r2 = new Random();
@@ -205,23 +245,100 @@ public class Tablero extends javax.swing.JFrame {
         valorDado2 = r2.nextInt(6)+1;
         
         avanzarCasillas = valorDado1 + valorDado2;
-       
-        posicion_ficha1 = posicion_ficha1 + avanzarCasillas;         
-        System.out.println(posicion_ficha1);      
+        
+        if (turno == 1){
+            posicion_ficha1 = posicion_ficha1 + avanzarCasillas;      
+            System.out.println("turno: " + turno + " avanzar casillas: " + avanzarCasillas);
+        }
+        
+        /*if (turno == 2){
+            posicion_ficha2 = posicion_ficha2 + avanzarCasillas;
+            total2 = total2 + posicion_ficha2;
+            System.out.println("turno: " + turno + " avanzar casillas " + posicion_ficha2+ " Total: " + total2);
+        }*/
+        
+        //System.out.println(posicion_ficha1);      
         
         casillas_recorridas = casillas_recorridas + avanzarCasillas;
-        System.out.println(casillas_recorridas);
+       // System.out.println(casillas_recorridas);
         
         
         cadena1 = String.valueOf(valorDado1);
         cadena2 = String.valueOf(valorDado2);
         cadena3 = String.valueOf(avanzarCasillas);
+        cadena4 = String.valueOf(turno);
         
         txtDado1.setText(cadena1);
         txtDado2.setText(cadena2);
         txtAvanzarCasillas.setText(cadena3);
+        txtTurno.setText(cadena4);
+        
         
     }//GEN-LAST:event_btnJugarDadoActionPerformed
+
+    private void jLabelFicha2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFicha2MouseClicked
+        /*if (turno == 2 && jugarDado == 2){
+            if (esquina == 1 || esquina == 5){
+                if (paso == 4 || paso == 1){
+                    posicion_ficha2 = posicion_ficha2 - 10;
+                    paso = 10;
+                }
+
+                if (posicion_ficha2 > 10){
+                    esquina = 2;
+                    paso = 1;
+                }else{
+                    jLabelFicha2.setLocation(620-(posicion_ficha2*56),635);
+                }
+            }
+
+            if (esquina == 2){
+                if (paso == 1){
+                    posicion_ficha2 = posicion_ficha2 - 10;
+                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
+                    paso = 2;
+                }
+
+                if (posicion_ficha2 > 10){
+                    esquina = 3;
+                }else{
+                    jLabelFicha2.setLocation(30,635-(59*posicion_ficha2));
+                }        
+                //jLabelFicha1.setLocation(30,635);
+            }
+
+            if(esquina == 3){
+                if (paso == 2){
+                    posicion_ficha2 = posicion_ficha2 - 10;
+                   // jLabelFicha1.setLocation(60,30);
+                    paso = 3;
+                }
+
+                if (posicion_ficha2 > 10){
+                    esquina = 4;
+                }else{
+                    jLabelFicha2.setLocation(60+(55*posicion_ficha2),30);
+                }
+            }
+
+            if(esquina == 4){
+                if(paso == 3){
+                    posicion_ficha2 = posicion_ficha2 - 10;
+                   // jLabelFicha1.setLocation(40, 40);
+                    paso = 4;
+                }
+
+                if(posicion_ficha2 > 10){
+                    esquina = 5;
+                }else{
+                    jLabelFicha2.setLocation(635, 60+(55*posicion_ficha2));
+                }         
+            }
+        }
+        turno = 1;
+        cadena4 = String.valueOf(turno);
+        txtTurno.setText(cadena4);*/
+    }//GEN-LAST:event_jLabelFicha2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -263,16 +380,18 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JButton btnJugarDado;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabelAdorno;
     private javax.swing.JLabel jLabelFicha1;
     private javax.swing.JLabel jLabelFicha2;
-    private javax.swing.JLabel jLabelFicha3;
-    private javax.swing.JLabel jLabelFicha4;
+    private javax.swing.JLabel jLabelFicha5;
+    private javax.swing.JLabel jLabelFicha6;
     private javax.swing.JLabel jLabelTablero;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtAvanzarCasillas;
     private javax.swing.JTextField txtDado1;
     private javax.swing.JTextField txtDado2;
+    private javax.swing.JTextField txtTurno;
     // End of variables declaration//GEN-END:variables
 }
