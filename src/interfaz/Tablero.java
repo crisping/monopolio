@@ -110,7 +110,7 @@ public class Tablero extends javax.swing.JFrame {
                 jLabelFicha1MouseClicked(evt);
             }
         });
-        getContentPane().add(jLabelFicha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 610, -1, -1));
+        getContentPane().add(jLabelFicha1, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 610, 30, -1));
 
         jLabelFicha3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/p_azul.png"))); // NOI18N
         jLabelFicha3.addMouseListener(new java.awt.event.MouseAdapter() {
