@@ -5,12 +5,14 @@
  */
 package interfaz;
 
+import clases.DataBase;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -28,6 +30,7 @@ public class Login extends JFrame implements ActionListener{
     public JPasswordField contraseña;
     public JPanel panel;
     public JButton acceder;
+    public JButton registrarse;
     
     //Metodos
     public Login(){
@@ -60,6 +63,11 @@ public class Login extends JFrame implements ActionListener{
         acceder.setSize(100,25);
         acceder.addActionListener(this);
         
+        registrarse = new JButton("Registro");
+        registrarse.setLocation(98,330);
+        registrarse.setSize(100,25);
+        registrarse.addActionListener(this);
+        
         
         panel = new JPanel();
         panel.setLayout(null);
@@ -69,6 +77,7 @@ public class Login extends JFrame implements ActionListener{
         panel.add(alias);
         panel.add(contraseña);
         panel.add(acceder);
+        panel.add(registrarse);
         
         add(panel);
         setTitle("Login Monopolio UNEG");
@@ -76,11 +85,37 @@ public class Login extends JFrame implements ActionListener{
         setSize(300,400);
         setResizable(false);
         setVisible(true);
+        this.setLocationRelativeTo(null);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == acceder){}
+        if (e.getSource() == acceder){
+            if(alias.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Ingrese  el alias");
+                return;
+            }
+            
+            if(contraseña.getText().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Ingrese  la contraseña");
+                return;
+            }
+            
+            DataBase db = new DataBase();
+            if(db.conexion()){
+                if(db.autenticarUsuario(alias.getText(), contraseña.getText())){
+                    Perfil.main(null);
+                }else{
+                    JOptionPane.showMessageDialog(this, "La combinacion de Alias/Contraseña inválida");
+                }
+            }else
+                JOptionPane.showMessageDialog(this, "No se pudo conectar a la BD");
+        }
+        
+        if (e.getSource() == registrarse){
+            Registro.main(null);
+            this.dispose();
+        }
     }
     
     public static void main(String[] args) {
