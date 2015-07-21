@@ -185,6 +185,7 @@ public class Registro extends javax.swing.JFrame {
         
         if(txtContraseña.getText().length()<8){
             JOptionPane.showMessageDialog(this, "La contraseña no puede terner menos de 8 caracteres");
+            return false;
         }
         
         for(int i = 0; i < txtContraseña.getText().length(); ++i){

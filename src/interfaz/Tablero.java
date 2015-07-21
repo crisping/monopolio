@@ -8,6 +8,7 @@ package interfaz;
 import clases.Banca;
 import java.util.Random;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -51,6 +52,9 @@ public class Tablero extends javax.swing.JFrame {
     private int avanzarCasillas;
     private int valorDado1;
     private int valorDado2;
+    
+    private int numCasilla[] = {0,0,0,0};
+    private int xPosFicha, yPosFicha; 
         
     public Tablero() {
         
@@ -234,11 +238,15 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void jLabelFicha1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFicha1MouseClicked
+
+        xPosFicha=jLabelFicha1.getLocation().x;
+        yPosFicha=jLabelFicha1.getLocation().y;
+        
         if (turno == 1 && jugarDado == 1){
             if (esquina == 1 || esquina == 5){
                 if (paso == 4 || paso == 1){
                     posicion_ficha1 = posicion_ficha1 - 10;
-                    paso = 10;
+                    paso = 10;   
                 }
 
                 if (posicion_ficha1 > 10){
@@ -246,6 +254,7 @@ public class Tablero extends javax.swing.JFrame {
                     paso = 1;
                 }else{
                     jLabelFicha1.setLocation(620-(posicion_ficha1*56),635);
+                    moviendoFicha(jLabelFicha1);
                 }
             }
 
@@ -260,6 +269,7 @@ public class Tablero extends javax.swing.JFrame {
                     esquina = 3;
                 }else{
                     jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
+                    moviendoFicha(jLabelFicha1);
                 }        
                 //jLabelFicha1.setLocation(30,635);
             }
@@ -275,6 +285,7 @@ public class Tablero extends javax.swing.JFrame {
                     esquina = 4;
                 }else{
                     jLabelFicha1.setLocation(60+(55*posicion_ficha1),30);
+                    moviendoFicha(jLabelFicha1);   
                 }
             }
 
@@ -289,6 +300,7 @@ public class Tablero extends javax.swing.JFrame {
                     esquina = 5;
                 }else{
                     jLabelFicha1.setLocation(635, 60+(55*posicion_ficha1));
+                    moviendoFicha(jLabelFicha1);
                 }         
             }
         }       
@@ -531,7 +543,23 @@ public class Tablero extends javax.swing.JFrame {
                 }         
             }
         }    
-    }                                         
+    }
+    
+    private void moviendoFicha(JLabel jLabelFicha){
+        if(xPosFicha!=jLabelFicha.getLocation().x || yPosFicha!=jLabelFicha.getLocation().y){
+            numCasilla[0]+=avanzarCasillas;
+            txtDineroJugador1.setText(""+numCasilla[0]);
+            if(numCasilla[0]>=40){
+                JOptionPane.showMessageDialog(this, "Ha recibido 2000");
+                //Llamar a la funcion q le suma 2000
+                numCasilla[0]-=40;
+                txtDineroJugador1.setText(""+numCasilla[0]);
+            }
+            mostrarTarjeta(numCasilla[0]);
+        }
+    }
+    
+    
 
     /*private void jLabelFicha3MouseClicked(java.awt.event.MouseEvent evt) {                                          
         
@@ -601,4 +629,19 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JTextField txtDineroJugador4;
     private javax.swing.JTextField txtTurno;
     // End of variables declaration//GEN-END:variables
+
+    private void mostrarTarjeta(int numCasilla) {
+        if(numCasilla==7)
+            JOptionPane.showMessageDialog(this, "Suerte");
+        if(numCasilla==4)
+            JOptionPane.showMessageDialog(this, "creo q hay un impuesto");
+        if(numCasilla==5)
+            JOptionPane.showConfirmDialog(this,"¿Desea comprar esta casilla?", "compra", JOptionPane.YES_NO_OPTION);
+        if(numCasilla==8)
+            JOptionPane.showConfirmDialog(this,"¿Desea comprar esta casilla?", "compra", JOptionPane.YES_NO_OPTION);
+        if(numCasilla==9)
+            JOptionPane.showConfirmDialog(this,"¿Desea comprar esta casilla?", "compra", JOptionPane.YES_NO_OPTION);
+        
+    }
+    
 }

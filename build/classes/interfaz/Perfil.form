@@ -53,12 +53,12 @@
                       <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" pref="57" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="puntajeEq2" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="txtAlias" min="-2" pref="80" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="verificar4" min="-2" pref="181" max="-2" attributes="0"/>
+                  <Component id="btnCambiarContraseña" min="-2" pref="181" max="-2" attributes="0"/>
                   <Component id="jButton1" min="-2" pref="181" max="-2" attributes="0"/>
                   <Component id="verificar1" min="-2" pref="181" max="-2" attributes="0"/>
               </Group>
@@ -97,9 +97,9 @@
                   </Group>
               </Group>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="verificar4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnCambiarContraseña" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" pref="20" max="-2" attributes="0"/>
-                  <Component id="puntajeEq2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtAlias" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -123,15 +123,18 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
     </Container>
-    <Component class="javax.swing.JTextField" name="puntajeEq2">
+    <Component class="javax.swing.JTextField" name="txtAlias">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="Usuario"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="puntajeEq2ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtAliasActionPerformed"/>
       </Events>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="Perfil_puntajeEq2"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
@@ -158,12 +161,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verificar3ActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="verificar4">
+    <Component class="javax.swing.JButton" name="btnCambiarContrase&#xf1;a">
       <Properties>
         <Property name="text" type="java.lang.String" value="CAMBIAR CONTRASE&#xd1;A"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="verificar4ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCambiarContrase&#xf1;aActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="verificar5">

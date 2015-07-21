@@ -91,6 +91,24 @@ public class DataBase {
         }
         return false;      
     }
+
+    public boolean setCambiarContraseña(String alias, String clave) {
+        if (connection != null) {
+            try {
+                sql = "UPDATE usuarios "
+                    + "SET contraseña='"+clave+"' "
+                    + "WHERE alias='"+alias+"'";
+                
+                return s.executeUpdate(sql)>0;
+                
+            }
+            catch(Exception e){
+                JOptionPane.showMessageDialog(null, e.getMessage());
+                return false;
+            }
+        }
+        return false;
+    }
     
     
     

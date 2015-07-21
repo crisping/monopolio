@@ -104,7 +104,10 @@ public class Login extends JFrame implements ActionListener{
             DataBase db = new DataBase();
             if(db.conexion()){
                 if(db.autenticarUsuario(alias.getText(), contraseña.getText())){
+                    Perfil.alias=alias.getText();
+                    Perfil.db = db;
                     Perfil.main(null);
+                    this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(this, "La combinacion de Alias/Contraseña inválida");
                 }

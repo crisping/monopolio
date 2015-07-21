@@ -5,17 +5,25 @@
  */
 package interfaz;
 
+import clases.DataBase;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+
 /**
  *
  * @author Argenis
  */
 public class Perfil extends javax.swing.JFrame {
 
+    public static String alias="";
+    public static DataBase db;
     /**
      * Creates new form Administracion
      */
     public Perfil() {
         initComponents();
+        txtAlias.setText(alias);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -28,11 +36,11 @@ public class Perfil extends javax.swing.JFrame {
     private void initComponents() {
 
         title = new javax.swing.JPanel();
-        puntajeEq2 = new javax.swing.JTextField();
+        txtAlias = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         verificar1 = new javax.swing.JButton();
         verificar3 = new javax.swing.JButton();
-        verificar4 = new javax.swing.JButton();
+        btnCambiarContraseña = new javax.swing.JButton();
         verificar5 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -42,12 +50,12 @@ public class Perfil extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        puntajeEq2.setEditable(false);
-        puntajeEq2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        puntajeEq2.setText("Usuario");
-        puntajeEq2.addActionListener(new java.awt.event.ActionListener() {
+        txtAlias.setEditable(false);
+        txtAlias.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtAlias.setText("Usuario");
+        txtAlias.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                puntajeEq2ActionPerformed(evt);
+                txtAliasActionPerformed(evt);
             }
         });
 
@@ -69,10 +77,10 @@ public class Perfil extends javax.swing.JFrame {
             }
         });
 
-        verificar4.setText("CAMBIAR CONTRASEÑA");
-        verificar4.addActionListener(new java.awt.event.ActionListener() {
+        btnCambiarContraseña.setText("CAMBIAR CONTRASEÑA");
+        btnCambiarContraseña.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                verificar4ActionPerformed(evt);
+                btnCambiarContraseñaActionPerformed(evt);
             }
         });
 
@@ -127,10 +135,10 @@ public class Perfil extends javax.swing.JFrame {
                         .addGap(40, 40, 40)
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(puntajeEq2, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(verificar4, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCambiarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(verificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -159,9 +167,9 @@ public class Perfil extends javax.swing.JFrame {
                                 .addComponent(jLabel7)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(verificar4)
+                    .addComponent(btnCambiarContraseña)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(puntajeEq2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtAlias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(verificar5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,9 +186,9 @@ public class Perfil extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void puntajeEq2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_puntajeEq2ActionPerformed
+    private void txtAliasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAliasActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_puntajeEq2ActionPerformed
+    }//GEN-LAST:event_txtAliasActionPerformed
 
     private void verificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificar1ActionPerformed
         // TODO add your handling code here:
@@ -190,9 +198,9 @@ public class Perfil extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_verificar3ActionPerformed
 
-    private void verificar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificar4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_verificar4ActionPerformed
+    private void btnCambiarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarContraseñaActionPerformed
+        cambiarContraseña();
+    }//GEN-LAST:event_btnCambiarContraseñaActionPerformed
 
     private void verificar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificar5ActionPerformed
         // TODO add your handling code here:
@@ -244,17 +252,68 @@ public class Perfil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCambiarContraseña;
     private javax.swing.JButton btnSalir;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JTextField puntajeEq2;
     private javax.swing.JPanel title;
+    private javax.swing.JTextField txtAlias;
     private javax.swing.JButton verificar1;
     private javax.swing.JButton verificar3;
-    private javax.swing.JButton verificar4;
     private javax.swing.JButton verificar5;
     // End of variables declaration//GEN-END:variables
+
+    private void cambiarContraseña() {
+        
+        JPasswordField txtPass = new JPasswordField();
+        
+        int opcion = JOptionPane.showConfirmDialog(null, txtPass, "Ingresa tu contraseña", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+
+        if (opcion == JOptionPane.OK_OPTION) {
+            String clave = new String(txtPass.getPassword());
+            String clave2;
+            if(db.autenticarUsuario(alias, clave)){
+                txtPass.setText("");
+                opcion=JOptionPane.showConfirmDialog(null, txtPass, "Ingresa la nueva contraseña", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if(opcion==JOptionPane.OK_OPTION){
+                    clave=txtPass.getText();
+                    if(!verificarPass(clave))
+                        return;
+                    txtPass.setText("");
+                    opcion=JOptionPane.showConfirmDialog(null, txtPass, "Repita la nueva contraseña", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                    if(opcion==JOptionPane.OK_OPTION){
+                        clave2=txtPass.getText();
+                        if(clave.equals(clave2)){
+                            if(db.setCambiarContraseña(alias,clave))
+                                JOptionPane.showMessageDialog(this, "La contraseña ha sido cambiada.", "Informacion", JOptionPane.INFORMATION_MESSAGE);
+                        }else
+                            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
+            }else
+                JOptionPane.showMessageDialog(this, "La contraseña introducida es incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public boolean verificarPass(String contraseña){
+        
+        if(contraseña.length()<8){
+            JOptionPane.showMessageDialog(this, "La contraseña no puede terner menos de 8 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+        
+        for(int i = 0; i < contraseña.length(); ++i){
+            
+            char caracter = contraseña.charAt(i);
+            
+            if(!Character.isLetterOrDigit(caracter)){
+                JOptionPane.showMessageDialog(this, "La Contraseña sólo debe contener letras y/o números", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
 }
