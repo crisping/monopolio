@@ -12,7 +12,7 @@ package clases;
 public class PartidaGuardada {
     
     private String id;
-    private String alias;
+    private String aliasJ1;
     private String aliasJ2;
     private String aliasJ3;
     private String aliasJ4;
@@ -20,7 +20,7 @@ public class PartidaGuardada {
 
     public PartidaGuardada(){
         id = "";
-        alias = "";
+        aliasJ1 = "";
         aliasJ2 = "";
         aliasJ3 = "";
         aliasJ4 = "";
@@ -29,7 +29,7 @@ public class PartidaGuardada {
     
     public PartidaGuardada(String id, String alias, String aliasJ2, String aliasJ3, String aliasJ4, boolean partidaActiva) {
         this.id = id;
-        this.alias = alias;
+        this.aliasJ1 = alias;
         this.aliasJ2 = aliasJ2;
         if(aliasJ3!=null)
             this.aliasJ3 = aliasJ3;
@@ -62,11 +62,11 @@ public class PartidaGuardada {
     }
 
     public String getAlias() {
-        return alias;
+        return aliasJ1;
     }
 
     public void setAlias(String alias) {
-        this.alias = alias;
+        this.aliasJ1 = alias;
     }
 
     public String getAliasJ2() {

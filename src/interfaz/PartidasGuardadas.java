@@ -193,7 +193,7 @@ public class PartidasGuardadas extends javax.swing.JFrame {
             });
             
             String datos[][]={};
-            String columnas[]={"Id Partida", "Alias", "Alias J2", "Alias J3", "Alias J4", "Partida Activa"};
+            String columnas[]={"Id Partida", "AliasJ1", "Alias J2", "Alias J3", "Alias J4", "Partida Activa"};
 
              modelo = new DefaultTableModel(datos,columnas){
                 //Se impide que el usuario pueda alterar los datos sobre la tabla directamente,
