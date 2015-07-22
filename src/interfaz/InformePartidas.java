@@ -10,6 +10,7 @@ import clases.InformePartida;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,7 +25,13 @@ public class InformePartidas extends javax.swing.JFrame {
     
     public InformePartidas() {
         initComponents();
-        cargarInforme();
+        if(cargarId())
+            cboId.setSelectedIndex(-1);
+        else{
+            JOptionPane.showMessageDialog(this, "Usted no es administrador de ninguna partida");
+            Perfil.main(null);
+            this.dispose();
+        }
     }
 
     /**
@@ -41,6 +48,8 @@ public class InformePartidas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblInformePartidas = new javax.swing.JTable();
         btnVolver = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        cboId = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -76,6 +85,14 @@ public class InformePartidas extends javax.swing.JFrame {
 
         btnVolver.setText("Volver");
 
+        jLabel2.setText("Id de Partida:");
+
+        cboId.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboIdActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -83,25 +100,36 @@ public class InformePartidas extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(260, 260, 260)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(260, 260, 260)
+                                .addComponent(jLabel1))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 611, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(255, 255, 255)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cboId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnVolver)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(btnVolver)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnVolver)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(cboId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -118,6 +146,10 @@ public class InformePartidas extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cboIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboIdActionPerformed
+        cargarInforme();
+    }//GEN-LAST:event_cboIdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,7 +188,9 @@ public class InformePartidas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
+    private javax.swing.JComboBox cboId;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblInformePartidas;
@@ -164,7 +198,7 @@ public class InformePartidas extends javax.swing.JFrame {
 
     private void cargarInforme() {
         
-        ArrayList<InformePartida> informePartidas = null;
+        ArrayList<InformePartida> informePartidas = db.getInformePartidas(alias, cboId.getSelectedItem().toString());
         
         if(informePartidas!=null){
             
@@ -218,5 +252,16 @@ public class InformePartidas extends javax.swing.JFrame {
         modelo.setValueAt(informePartida.getNroPropiedades(),numFilas,4);
         
         
+    }
+
+    private boolean cargarId() {
+        ArrayList<Integer> ids = new ArrayList<Integer>();
+        if(ids!=null){
+            for (Integer id : ids) {
+                cboId.addItem(id);
+            }
+            return true;
+        }
+        return false;
     }
 }
