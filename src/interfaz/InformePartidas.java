@@ -7,7 +7,6 @@ package interfaz;
 
 import clases.DataBase;
 import clases.InformePartida;
-import clases.PartidaGuardada;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
