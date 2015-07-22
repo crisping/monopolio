@@ -2459,154 +2459,294 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void tarjetaCajaComunal(){
+        
         Random r1 = new Random();
-
         int numMensaje = r1.nextInt(16)+1;
         
         switch(numMensaje){
             case 1:{
-                JOptionPane.showMessageDialog(this, "Vaya A La Carcel");
+                JOptionPane.showMessageDialog(this, " Vaya A La Carcel ");
+                if (turno == 1){
+                    jLabelFicha1.setLocation(30,635);
+                    numCasilla1 = 10;
+                    JOptionPane.showMessageDialog(this, "Fuiste enviado a la carcel");
+                }
+                if (turno == 2){
+                    jLabelFicha2.setLocation(30,635);
+                    numCasilla2 = 10;
+                    JOptionPane.showMessageDialog(this, "Fuiste enviado a la carcel");
+                }
+                if (turno == 3){
+                    jLabelFicha3.setLocation(30,635);
+                    numCasilla3 = 10;
+                    JOptionPane.showMessageDialog(this, "Fuiste enviado a la carcel");
+                }
+                if (turno == 4){
+                    jLabelFicha4.setLocation(30,635);
+                    numCasilla4 = 10;
+                    JOptionPane.showMessageDialog(this, "Fuiste enviado a la carcel");
+                }
             }break;
             
+                
             case 2:{
-                JOptionPane.showMessageDialog(this, "Pague 1000Bs ");
+                JOptionPane.showMessageDialog(this, " Impuesto Pague 1000Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 1000;
+                    actualizarDinero();
+                }
             }break;
             
             case 3:{
-                JOptionPane.showMessageDialog(this, "pague al banco 400Bs");
+                JOptionPane.showMessageDialog(this, " Pague al banco 400Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 400;
+                    actualizarDinero();
+                }
             }break;
             
             case 4:{
-                JOptionPane.showMessageDialog(this, "Salga Gratis de la Carcel;");
+                JOptionPane.showMessageDialog(this, " Por Superar los limites de velocidad pague 500Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 500;
+                    actualizarDinero();
+                }
             }break;
             
             case 5:{
-                JOptionPane.showMessageDialog(this, "Cobre 50Bs;");
+                JOptionPane.showMessageDialog(this, "Por colaborador Cobre 750Bs;");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 750;
+                    actualizarDinero();
+                }
             }break;
                 
             case 6:{
-                JOptionPane.showMessageDialog(this, " un Abrazo ");
+                JOptionPane.showMessageDialog(this, " Error de la Banca Recibe 500Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 500;
+                    actualizarDinero();
+                }
             }break;
                 
             case 7:{
-                JOptionPane.showMessageDialog(this, "Un Regalo;");
+                JOptionPane.showMessageDialog(this, " Has Recibido Un Regalo de 1000Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 1000;
+                    actualizarDinero();
+                }
             }break;
                     
             case 8:{
-                JOptionPane.showMessageDialog(this, "pague al banco 600;");
+                JOptionPane.showMessageDialog(this, " Pague al banco 600Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 600;
+                    actualizarDinero();
+                }
                 
             }break;
                 
             case 9:{
-                JOptionPane.showMessageDialog(this, "pague al banco 250;");
-                
+                JOptionPane.showMessageDialog(this, " Pague al Institucion 250Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 250;
+                    actualizarDinero();
+                }
             }break;
                 
             case 10:{
-                JOptionPane.showMessageDialog(this, "pague al banco 800;");
+                JOptionPane.showMessageDialog(this, " Pague por gastos escolares 800Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 800;
+                    actualizarDinero();
+                }
             }break;
                 
             case 11:{
-                
-                JOptionPane.showMessageDialog(this, "Cobre 500");
+                JOptionPane.showMessageDialog(this, " Por Buena Conducta Cobre 500Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 500;
+                    actualizarDinero();
+                }
             }break;
                 
             case 12:{
-                JOptionPane.showMessageDialog(this, "vaya a salida");
+                JOptionPane.showMessageDialog(this, " Usted Ha Recibido Un Regalo 600Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 600;
+                    actualizarDinero();
+                }
             }
             
             case 13:{
-                JOptionPane.showMessageDialog(this, "valla para la atlantico");
+                JOptionPane.showMessageDialog(this, " Has Ganado El Concurso de Comida, Recibe 400Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 400;
+                    actualizarDinero();
+                }
             }break;
                 
             case 14:{
-                JOptionPane.showMessageDialog(this, "ir a univerdidad;");
+                JOptionPane.showMessageDialog(this, " Por Reprobar Base De Datos Pague 500Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 500;
+                    actualizarDinero();
+                }
             }break;
              
             case 15:{
-                JOptionPane.showMessageDialog(this, "Recibe 500");
+                JOptionPane.showMessageDialog(this, " Recibe Por Ganar El Torneo De Lucha 500Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 500;
+                    actualizarDinero();
+                }
             }break;
                 
             case 16:{
-                JOptionPane.showMessageDialog(this, "Marian");
+                JOptionPane.showMessageDialog(this, " Felicitaciones Has Ganado Un Bonus De 800Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 800;
+                    actualizarDinero();
+                }
             }break;
         
         }
         
     }
     
-     private void tarjetaSuerte(){
+    private void tarjetaSuerte(){
         Random r1 = new Random();
 
         int numMensaje = r1.nextInt(16)+1;
         
         switch(numMensaje){
             case 1:{
-                JOptionPane.showMessageDialog(this, "Avance hasta la reodoma Chilemex");
+                JOptionPane.showMessageDialog(this, " Multado Por Exceso De Velocidad Pague 250Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 250;
+                    actualizarDinero();
+                }
             }break;
             
             case 2:{
-                JOptionPane.showMessageDialog(this, "Vaya a la salida;");
+                JOptionPane.showMessageDialog(this, " Usted Es Una Persona Con Mucha Suerte,  Recibe Un Bonus De 2000Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 2000;
+                    actualizarDinero();
+                }
             }break;
             
             case 3:{
-                JOptionPane.showMessageDialog(this, "Valla a la plaza");
+                JOptionPane.showMessageDialog(this, " Usted Ha Ganado Un Concurso De Belleza, Recibe 500Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 500;
+                    actualizarDinero();
+                }
             }break;
             
             case 4:{
-                JOptionPane.showMessageDialog(this, "Cobre 150 $ ");
-                
+                JOptionPane.showMessageDialog(this, " Reciba un Premio De 1500Bs Por Buen Ciudadano ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 1500;
+                    actualizarDinero();
+                }                
             }break;
             
             case 5:{
-                JOptionPane.showMessageDialog(this, "Vanda a la cartelero");
+                JOptionPane.showMessageDialog(this, " Has Ganado Un Concurso Musical, Recibe 600Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 600;
+                    actualizarDinero();
+                }
    
             }break;
                 
             case 6:{
-                JOptionPane.showMessageDialog(this, " Salir de la carcel");
+                JOptionPane.showMessageDialog(this, " Por No Lavar Los Platos Pague 100Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 100;
+                    actualizarDinero();
+                }
             }break;
                 
             case 7:{
-                JOptionPane.showMessageDialog(this, "Un Regalo;");
+                JOptionPane.showMessageDialog(this, " Usted Ha Recibido Un Regalo De 400Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 400;
+                    actualizarDinero();
+                }
             }break;
                     
             case 8:{
-                JOptionPane.showMessageDialog(this, "Te quiero, tranquila desoues hablamos");
+                JOptionPane.showMessageDialog(this, " La Empresa Pepsi Te Ha Hecho Una Bonificacion De 1000Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 1000;
+                    actualizarDinero();
+                }
             }break;
                 
             case 9:{
-                JOptionPane.showMessageDialog(this, "pague al banco 250;");
-                
+                JOptionPane.showMessageDialog(this, "Por Moroso Pague 250Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 250;
+                    actualizarDinero();
+                }
             }break;
                 
             case 10:{
-                JOptionPane.showMessageDialog(this, "pague al banco 800;");
+                JOptionPane.showMessageDialog(this, " Pague Impuesto 600Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - 600;
+                    actualizarDinero();
+                }
             }break;
                 
             case 11:{
-                
-                JOptionPane.showMessageDialog(this, "Cobre 500");
+                JOptionPane.showMessageDialog(this, "Por Ser Solidario, Recibe 300Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 300;
+                    actualizarDinero();
+                }
             }break;
                 
             case 12:{
-                JOptionPane.showMessageDialog(this, "vaya a salida");
+                JOptionPane.showMessageDialog(this, " El juego Lo Ha Premiado Con Un Bonus De 800Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 800;
+                    actualizarDinero();
+                }
             }
             
             case 13:{
-                JOptionPane.showMessageDialog(this, "valla para la Carcel");
+                JOptionPane.showMessageDialog(this, "La Empresa Google Le Hizo Una Donacion De 900Bs ");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 900;
+                    actualizarDinero();
+                }
             }break;
                 
             case 14:{
-                JOptionPane.showMessageDialog(this, "Usu jugo se ve coomo si tuviera dias hay.");
+                JOptionPane.showMessageDialog(this, " Recibe un Premio Por Realizar El Proyecto De Sistemas De Bases De Datos, Recibe 1500Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 1500;
+                    actualizarDinero();
+                }
             }break;
              
             case 15:{
                 JOptionPane.showMessageDialog(this, "Recibe 500");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 500;
+                    actualizarDinero();
+                }
             }break;
                 
             case 16:{
-                JOptionPane.showMessageDialog(this, "Felez Dia");
+                JOptionPane.showMessageDialog(this, "Feliz Dia Del Trabajador, Recibe 700Bs");
+                if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] + 700;
+                    actualizarDinero();
+                }
             }break;
         }
         
@@ -2934,16 +3074,17 @@ public class Tablero extends javax.swing.JFrame {
         //Inicio de Caja Comunal
         if(numCasilla==2){          
             JOptionPane.showMessageDialog(this, "Tarjeta: Caja Comunal");
-            tarjetaSuerte();
+            tarjetaCajaComunal();
         }
         
         if(numCasilla==17){          
             JOptionPane.showMessageDialog(this, "Tarjeta: Caja Comunal");
-            tarjetaSuerte(); tarjetaSuerte();           
+            tarjetaCajaComunal();           
         }
         
         if(numCasilla==33){          
             JOptionPane.showMessageDialog(this, "Tarjeta: Caja Comunal");
+            tarjetaCajaComunal();
         }
         //Fin Caja Comunal
         
