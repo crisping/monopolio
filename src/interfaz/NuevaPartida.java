@@ -14,11 +14,11 @@ public class NuevaPartida extends javax.swing.JFrame {
     /**
      * Creates new form NuevaPartida
      */
-    
-    private Tablero tablero = null;
+    public static String alias="";
     
     public NuevaPartida() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -91,7 +91,7 @@ public class NuevaPartida extends javax.swing.JFrame {
             }
         });
 
-        btnSalir.setText("Salir");
+        btnSalir.setText("Cancelar");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -135,7 +135,7 @@ public class NuevaPartida extends javax.swing.JFrame {
                         .addComponent(verificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
                         .addComponent(btnSalir)))
-                .addContainerGap(99, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -178,16 +178,15 @@ public class NuevaPartida extends javax.swing.JFrame {
     }//GEN-LAST:event_verificarActionPerformed
 
     private void verificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificar1ActionPerformed
-        dispose();
-    if(tablero == null){
-        tablero = new Tablero();
-        tablero.setVisible(true);
-    }
+        Tablero.main(null);
+        Tablero.alias=alias;
+        this.dispose();
        
     }//GEN-LAST:event_verificar1ActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        dispose();
+        Perfil.main(null);
+        this.dispose();
     }//GEN-LAST:event_btnSalirActionPerformed
 
     /**

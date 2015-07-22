@@ -204,8 +204,9 @@ public class Perfil extends javax.swing.JFrame {
 
     private void verificar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificar5ActionPerformed
         // TODO add your handling code here:
-        NuevaPartida NP = new NuevaPartida();
-        NP.setVisible(true);
+        NuevaPartida.main(null);
+        NuevaPartida.alias=alias;
+        this.dispose();
         
     }//GEN-LAST:event_verificar5ActionPerformed
 

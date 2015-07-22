@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -109,9 +110,32 @@ public class DataBase {
         }
         return false;
     }
+
+    public ArrayList<PartidaGuardada> getPartidasGuardadas(String alias) {
+        
+        try {
+            ArrayList<PartidaGuardada> partidaGuardadas = new ArrayList<PartidaGuardada>();
+            sql = "SELECT ";
+            
+            while(rs.next()){
+
+                //partidaGuardadas.add(new PartidaGuardada(rs.getString(0), rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(0));
+
+                
+            }
+            
+            if(partidaGuardadas.size()==0)
+                return null;
+            else
+                return partidaGuardadas;
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return null;
+        }
     
     
-    
+    }
     
     
 }

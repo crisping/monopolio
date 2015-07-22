@@ -154,6 +154,8 @@ public class Registro extends javax.swing.JFrame {
             DataBase db = new DataBase();
             if(db.conexion()){
                 if(db.registrarUsuario(txtAlias.getText(),txtContraseña.getText())){
+                    Perfil.alias=txtAlias.getText();
+                    Perfil.db = db;
                     Perfil.main(null);
                     this.dispose();
                 }
