@@ -21,8 +21,8 @@ public class Tablero extends javax.swing.JFrame {
      */
     public static String alias;
     
-    private int turno = 1;              //Simula al jugador Actual
-    private int jugarDado = 1;
+    private int turno = 0;              //Simula al jugador Actual
+    private int jugarDado = 0;
     
     private int mover1 = 1;
     private int mover2 = 1;
@@ -191,6 +191,7 @@ public class Tablero extends javax.swing.JFrame {
         txtDineroJugador3 = new javax.swing.JTextField();
         txtDineroJugador4 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -255,20 +256,21 @@ public class Tablero extends javax.swing.JFrame {
                 btnJugarDadoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnJugarDado, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 60, 100, -1));
-        getContentPane().add(txtDado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 20, 40, 30));
-        getContentPane().add(txtDado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 20, 40, 30));
-        getContentPane().add(txtAvanzarCasillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 20, 40, -1));
+        getContentPane().add(btnJugarDado, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 450, 100, -1));
+        getContentPane().add(txtDado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 410, 40, 30));
+        getContentPane().add(txtDado2, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 410, 40, 30));
+        getContentPane().add(txtAvanzarCasillas, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 500, 40, -1));
 
         jLabel1.setText("Avanzar Casillas");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 50, -1, -1));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 530, -1, 10));
 
-        jLabel2.setText("Turno");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 50, -1, -1));
-        getContentPane().add(txtTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 50, -1));
+        jLabel2.setText("Turno Jugador");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 610, -1, -1));
+        getContentPane().add(txtTurno, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 580, 50, -1));
 
+        jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel3.setText("Banco");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 140, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, -1, -1));
 
         jLabel4.setText("jugador1");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 190, -1, -1));
@@ -289,6 +291,10 @@ public class Tablero extends javax.swing.JFrame {
         jLabel8.setText("Dinero");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 170, -1, -1));
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel9.setText("Monopolio");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, -1, -1));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -308,8 +314,7 @@ public class Tablero extends javax.swing.JFrame {
             
         jugarDados();
         obtenerTurno(); 
-       // eliminarJugador(); //busca Si hay usruarios en banca rota y los elimina aumentando el turno.
-        
+
         cadena4 = String.valueOf(turno);           
         txtTurno.setText(cadena4);
         
@@ -330,12 +335,13 @@ public class Tablero extends javax.swing.JFrame {
         if (turno == 1){
             numCasilla1 = numCasilla1 + avanzarCasillas;
             posicion_ficha1 = posicion_ficha1 + avanzarCasillas;
-            
-            System.out.println("turno: " + turno + " avanzar casillas: " + avanzarCasillas);
-            
+    
+            recibeBonus();
+            //eliminarJugador();
             if (mover1 == 1){
-              //  eliminarJugador(); //busca Si hay usruarios en banca rota y los elimina aumentando el turno.
-                moverFicha1();
+                
+                //moverFicha1();
+                MoverFicha1();
             }else{
                 if (mover1 < 1){
                     mover1 = mover1 + 1;
@@ -347,17 +353,19 @@ public class Tablero extends javax.swing.JFrame {
                     posicion_ficha1=10;
                     numCasilla1 = 10;
                 }
-            }
-            System.out.println(mover1);
+            }           
         }
         
         if (turno == 2){
             numCasilla2 = numCasilla2 + avanzarCasillas;
             posicion_ficha2 = posicion_ficha2 + avanzarCasillas;       
-            System.out.println("turno: " + turno + " avanzar casillas " + avanzarCasillas);
             
+            recibeBonus();
+            //eliminarJugador();
             if (mover2 == 1){
-                moverFicha2();
+                
+                MoverFicha2();
+                //moverFicha2();
             }else{
                 if (mover2 < 1){
                     mover2 = mover2 + 1;
@@ -370,16 +378,17 @@ public class Tablero extends javax.swing.JFrame {
                     numCasilla2 = 10;
                 }
             }
-            System.out.println(mover2);
         }
         
         if (turno == 3){
             numCasilla3 = numCasilla3 + avanzarCasillas;
             posicion_ficha3 = posicion_ficha3 + avanzarCasillas;   
-            System.out.println("turno: " + turno + " avanzar casillas " + avanzarCasillas);
             
-            if (mover3 == 1){
-                moverFicha3();
+            recibeBonus();
+            //eliminarJugador();
+            if (mover3 == 1){               
+                MoverFicha3();
+                //moverFicha3();
             }else{
                 if (mover3 < 1){
                     mover3 = mover3 + 1;
@@ -392,16 +401,17 @@ public class Tablero extends javax.swing.JFrame {
                     numCasilla3 = 10;
                 }
             }
-            System.out.println(mover3);
         } 
         
         if (turno == 4){
             numCasilla4 = numCasilla4 + avanzarCasillas;
             posicion_ficha4 = posicion_ficha4 + avanzarCasillas;   
-            System.out.println("turno: " + turno + " avanzar casillas " + avanzarCasillas);
             
-            if (mover4 == 1){
-                moverFicha4();
+            recibeBonus();
+            //eliminarJugador();
+            if (mover4 == 1){               
+                MoverFicha4();
+                //moverFicha4();
             }else{
                 if (mover4 < 1){
                     mover4 = mover4 + 1;
@@ -414,11 +424,8 @@ public class Tablero extends javax.swing.JFrame {
                     numCasilla4 = 10;
                 }
             }
-            System.out.println(mover4);
         }
         
-        recibeBonus();
-       
     }//GEN-LAST:event_btnJugarDadoActionPerformed
 
     private void jLabelFicha2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFicha2MouseClicked
@@ -432,21 +439,6 @@ public class Tablero extends javax.swing.JFrame {
     private void jLabelFicha4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFicha4MouseClicked
             
     }
-    
-    private void moviendoFicha(JLabel jLabelFicha, int numJugador,int dineroJugador){
-        if(xPosFicha!=jLabelFicha.getLocation().x || yPosFicha!=jLabelFicha.getLocation().y){
-            numCasilla[numJugador]+=avanzarCasillas;
-            //txtDineroJugador1.setText(""+numCasilla[0]);
-            if(numCasilla[numJugador]>=40){
-                JOptionPane.showMessageDialog(this, "Ha recibido 2000");
-                //Llamar a la funcion q le suma 2000
-                numCasilla[numJugador]-=40;
-                txtDineroJugador1.setText(""+numCasilla[numJugador]);
-            }
-           // mostrarTarjeta(numCasilla[numJugador],dineroJugador);
-        }
-    }
-    
     
 
     /*private void jLabelFicha3MouseClicked(java.awt.event.MouseEvent evt) {                                          
@@ -499,6 +491,7 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAdorno;
     private javax.swing.JLabel jLabelFicha1;
     private javax.swing.JLabel jLabelFicha2;
@@ -518,8 +511,6 @@ public class Tablero extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
    
     private void moverFicha1(){
-        xPosFicha=jLabelFicha1.getLocation().x;
-        yPosFicha=jLabelFicha1.getLocation().y;
         
         if (turno == 1 && jugarDado == 1){
             if (esquina == 1 || esquina == 5){
@@ -780,6 +771,844 @@ public class Tablero extends javax.swing.JFrame {
         }
     }
     
+    private void MoverFicha1(){
+        switch(numCasilla1){
+            
+            case 0:{
+                jLabelFicha1.setLocation(620,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+            
+            case 1:{
+                jLabelFicha1.setLocation(564,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 2:{
+                jLabelFicha1.setLocation(508,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 3:{
+                jLabelFicha1.setLocation(452,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 4:{
+                jLabelFicha1.setLocation(396,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 5:{
+                jLabelFicha1.setLocation(340,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 6:{
+                jLabelFicha1.setLocation(284,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+            
+            case 7:{
+                jLabelFicha1.setLocation(228,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+            
+            case 8:{
+                jLabelFicha1.setLocation(172,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 9:{
+                jLabelFicha1.setLocation(116,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+            
+            case 10:{
+                jLabelFicha1.setLocation(30,635);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 11:{
+                jLabelFicha1.setLocation(30,576);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 12:{
+                jLabelFicha1.setLocation(30,517);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 13:{
+                jLabelFicha1.setLocation(30,458);
+                mostrarTarjeta(numCasilla1);
+            }break;
+            
+            case 14:{
+                jLabelFicha1.setLocation(30,399);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 15:{
+                jLabelFicha1.setLocation(30,340);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 16:{
+                jLabelFicha1.setLocation(30,281);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 17:{
+                jLabelFicha1.setLocation(30,222);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 18:{
+                jLabelFicha1.setLocation(30,163);
+                mostrarTarjeta(numCasilla1);
+            }break;    
+            
+            case 19:{
+                jLabelFicha1.setLocation(30,104);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 20:{
+                jLabelFicha1.setLocation(30,45);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 21:{
+                jLabelFicha1.setLocation(115,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 22:{
+                jLabelFicha1.setLocation(170,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 23:{
+                jLabelFicha1.setLocation(225,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 24:{
+                jLabelFicha1.setLocation(275,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 25:{
+                jLabelFicha1.setLocation(330,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 26:{
+                jLabelFicha1.setLocation(385,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+            
+            case 27:{
+                jLabelFicha1.setLocation(440,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+            
+            case 28:{
+                jLabelFicha1.setLocation(495,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 29:{
+                jLabelFicha1.setLocation(550,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+            
+            case 30:{
+                jLabelFicha1.setLocation(550,30);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 31:{
+                jLabelFicha1.setLocation(635,115);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 32:{
+                jLabelFicha1.setLocation(635,170);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 33:{
+                jLabelFicha1.setLocation(635,225);
+                mostrarTarjeta(numCasilla1);
+            }break;
+            
+            case 34:{
+                jLabelFicha1.setLocation(635,280);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 35:{
+                jLabelFicha1.setLocation(635,335);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 36:{
+                jLabelFicha1.setLocation(635,390);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 37:{
+                jLabelFicha1.setLocation(635,445);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 38:{
+                jLabelFicha1.setLocation(635,500);
+                mostrarTarjeta(numCasilla1);
+            }break;    
+            
+            case 39:{
+                jLabelFicha1.setLocation(635,555);
+                mostrarTarjeta(numCasilla1);
+            }break;
+                
+            case 40:{
+                jLabelFicha1.setLocation(635,610);
+                mostrarTarjeta(numCasilla1);
+            }break;  
+        }
+    }
+    
+    private void MoverFicha2(){
+        switch(numCasilla2){
+            
+            case 0:{
+                jLabelFicha2.setLocation(620,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+            
+            case 1:{
+                jLabelFicha2.setLocation(564,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 2:{
+                jLabelFicha2.setLocation(508,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 3:{
+                jLabelFicha2.setLocation(452,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 4:{
+                jLabelFicha2.setLocation(396,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 5:{
+                jLabelFicha2.setLocation(340,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 6:{
+                jLabelFicha2.setLocation(284,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+            
+            case 7:{
+                jLabelFicha2.setLocation(228,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+            
+            case 8:{
+                jLabelFicha2.setLocation(172,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 9:{
+                jLabelFicha2.setLocation(116,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+            
+            case 10:{
+                jLabelFicha2.setLocation(30,635);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 11:{
+                jLabelFicha2.setLocation(30,576);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 12:{
+                jLabelFicha2.setLocation(30,517);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 13:{
+                jLabelFicha2.setLocation(30,458);
+                mostrarTarjeta(numCasilla2);
+            }break;
+            
+            case 14:{
+                jLabelFicha2.setLocation(30,399);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 15:{
+                jLabelFicha2.setLocation(30,340);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 16:{
+                jLabelFicha2.setLocation(30,281);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 17:{
+                jLabelFicha2.setLocation(30,222);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 18:{
+                jLabelFicha2.setLocation(30,163);
+                mostrarTarjeta(numCasilla2);
+            }break;    
+            
+            case 19:{
+                jLabelFicha2.setLocation(30,104);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 20:{
+                jLabelFicha2.setLocation(30,45);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 21:{
+                jLabelFicha2.setLocation(115,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 22:{
+                jLabelFicha2.setLocation(170,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 23:{
+                jLabelFicha2.setLocation(225,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 24:{
+                jLabelFicha2.setLocation(275,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 25:{
+                jLabelFicha2.setLocation(330,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 26:{
+                jLabelFicha2.setLocation(385,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+            
+            case 27:{
+                jLabelFicha2.setLocation(440,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+            
+            case 28:{
+                jLabelFicha2.setLocation(495,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 29:{
+                jLabelFicha2.setLocation(550,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+            
+            case 30:{
+                jLabelFicha2.setLocation(550,30);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 31:{
+                jLabelFicha2.setLocation(635,115);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 32:{
+                jLabelFicha2.setLocation(635,170);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 33:{
+                jLabelFicha2.setLocation(635,225);
+                mostrarTarjeta(numCasilla2);
+            }break;
+            
+            case 34:{
+                jLabelFicha2.setLocation(635,280);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 35:{
+                jLabelFicha2.setLocation(635,335);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 36:{
+                jLabelFicha2.setLocation(635,390);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 37:{
+                jLabelFicha2.setLocation(635,445);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 38:{
+                jLabelFicha2.setLocation(635,500);
+                mostrarTarjeta(numCasilla2);
+            }break;    
+            
+            case 39:{
+                jLabelFicha2.setLocation(635,555);
+                mostrarTarjeta(numCasilla2);
+            }break;
+                
+            case 40:{
+                jLabelFicha2.setLocation(635,610);
+                mostrarTarjeta(numCasilla2);
+            }break;  
+        }
+    }
+    
+    private void MoverFicha3(){
+        switch(numCasilla3){
+            case 0:{
+                jLabelFicha3.setLocation(620,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 1:{
+                jLabelFicha3.setLocation(564,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 2:{
+                jLabelFicha3.setLocation(508,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 3:{
+                jLabelFicha3.setLocation(452,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 4:{
+                jLabelFicha3.setLocation(396,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 5:{
+                jLabelFicha3.setLocation(340,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 6:{
+                jLabelFicha3.setLocation(284,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+            
+            case 7:{
+                jLabelFicha3.setLocation(228,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+            
+            case 8:{
+                jLabelFicha3.setLocation(172,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 9:{
+                jLabelFicha3.setLocation(116,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+            
+            case 10:{
+                jLabelFicha3.setLocation(30,635);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 11:{
+                jLabelFicha3.setLocation(30,576);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 12:{
+                jLabelFicha3.setLocation(30,517);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 13:{
+                jLabelFicha3.setLocation(30,458);
+                mostrarTarjeta(numCasilla3);
+            }break;
+            
+            case 14:{
+                jLabelFicha3.setLocation(30,399);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 15:{
+                jLabelFicha3.setLocation(30,340);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 16:{
+                jLabelFicha3.setLocation(30,281);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 17:{
+                jLabelFicha3.setLocation(30,222);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 18:{
+                jLabelFicha3.setLocation(30,163);
+                mostrarTarjeta(numCasilla3);
+            }break;    
+            
+            case 19:{
+                jLabelFicha3.setLocation(30,104);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 20:{
+                jLabelFicha3.setLocation(30,45);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 21:{
+                jLabelFicha3.setLocation(115,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 22:{
+                jLabelFicha3.setLocation(170,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 23:{
+                jLabelFicha3.setLocation(225,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 24:{
+                jLabelFicha3.setLocation(275,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 25:{
+                jLabelFicha3.setLocation(330,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 26:{
+                jLabelFicha3.setLocation(385,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+            
+            case 27:{
+                jLabelFicha3.setLocation(440,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+            
+            case 28:{
+                jLabelFicha3.setLocation(495,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 29:{
+                jLabelFicha3.setLocation(550,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+            
+            case 30:{
+                jLabelFicha3.setLocation(605,30);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 31:{
+                jLabelFicha3.setLocation(635,115);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 32:{
+                jLabelFicha3.setLocation(635,170);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 33:{
+                jLabelFicha3.setLocation(635,225);
+                mostrarTarjeta(numCasilla3);
+            }break;
+            
+            case 34:{
+                jLabelFicha3.setLocation(635,280);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 35:{
+                jLabelFicha3.setLocation(635,335);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 36:{
+                jLabelFicha3.setLocation(635,390);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 37:{
+                jLabelFicha3.setLocation(635,445);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 38:{
+                jLabelFicha3.setLocation(635,500);
+                mostrarTarjeta(numCasilla3);
+            }break;    
+            
+            case 39:{
+                jLabelFicha3.setLocation(635,555);
+                mostrarTarjeta(numCasilla3);
+            }break;
+                
+            case 40:{
+                jLabelFicha3.setLocation(635,610);
+                mostrarTarjeta(numCasilla3);
+            }break;  
+        }
+    }
+    
+    private void MoverFicha4(){
+        switch(numCasilla4){
+            
+            case 0:{
+                jLabelFicha4.setLocation(620,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+            
+            case 1:{
+                jLabelFicha4.setLocation(564,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 2:{
+                jLabelFicha4.setLocation(508,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 3:{
+                jLabelFicha4.setLocation(452,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 4:{
+                jLabelFicha4.setLocation(396,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 5:{
+                jLabelFicha4.setLocation(340,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 6:{
+                jLabelFicha4.setLocation(284,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+            
+            case 7:{
+                jLabelFicha4.setLocation(228,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+            
+            case 8:{
+                jLabelFicha4.setLocation(172,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 9:{
+                jLabelFicha4.setLocation(116,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+            
+            case 10:{
+                jLabelFicha4.setLocation(30,635);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 11:{
+                jLabelFicha4.setLocation(30,576);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 12:{
+                jLabelFicha4.setLocation(30,517);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 13:{
+                jLabelFicha4.setLocation(30,458);
+                mostrarTarjeta(numCasilla4);
+            }break;
+            
+            case 14:{
+                jLabelFicha4.setLocation(30,399);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 15:{
+                jLabelFicha4.setLocation(30,340);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 16:{
+                jLabelFicha4.setLocation(30,281);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 17:{
+                jLabelFicha4.setLocation(30,222);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 18:{
+                jLabelFicha4.setLocation(30,163);
+                mostrarTarjeta(numCasilla4);
+            }break;    
+            
+            case 19:{
+                jLabelFicha4.setLocation(30,104);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 20:{
+                jLabelFicha4.setLocation(30,45);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 21:{
+                jLabelFicha4.setLocation(115,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 22:{
+                jLabelFicha4.setLocation(170,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 23:{
+                jLabelFicha4.setLocation(225,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 24:{
+                jLabelFicha4.setLocation(275,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 25:{
+                jLabelFicha4.setLocation(330,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 26:{
+                jLabelFicha4.setLocation(385,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+            
+            case 27:{
+                jLabelFicha4.setLocation(440,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+            
+            case 28:{
+                jLabelFicha4.setLocation(495,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 29:{
+                jLabelFicha4.setLocation(550,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+            
+            case 30:{
+                jLabelFicha4.setLocation(550,30);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 31:{
+                jLabelFicha4.setLocation(635,115);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 32:{
+                jLabelFicha4.setLocation(635,170);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 33:{
+                jLabelFicha4.setLocation(635,225);
+                mostrarTarjeta(numCasilla4);
+            }break;
+            
+            case 34:{
+                jLabelFicha4.setLocation(635,280);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 35:{
+                jLabelFicha4.setLocation(635,335);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 36:{
+                jLabelFicha4.setLocation(635,390);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 37:{
+                jLabelFicha4.setLocation(635,445);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 38:{
+                jLabelFicha4.setLocation(635,500);
+                mostrarTarjeta(numCasilla4);
+            }break;    
+            
+            case 39:{
+                jLabelFicha4.setLocation(635,555);
+                mostrarTarjeta(numCasilla4);
+            }break;
+                
+            case 40:{
+                jLabelFicha4.setLocation(635,610);
+                mostrarTarjeta(numCasilla4);
+            }break;  
+        }
+    }
     
     
     private void PagarActualizar(){      
@@ -1607,30 +2436,170 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void pagarImpuesto(int numCasilla){
-        JOptionPane.showMessageDialog(this, " Impuesto: Debes pagar una cuota por caer en esta casilla ");
-        if ((turno == 1 || turno ==2 || turno == 3 || turno == 4) && (numCasilla == 38)) {
-            JOptionPane.showMessageDialog(this, " Impuesto Cobrado ");
+        JOptionPane.showMessageDialog(this, " Impuesto: Debes pagar una cuota por caer en esta casilla ");       
+        if ((turno == 1 || turno ==2 || turno == 3 || turno == 4) && numCasilla == 38) {           
             dineroJugadores[turno-1] = dineroJugadores[turno-1] - impuesto;
-                
-            if (propiedadCompradaPor[numCasilla] == 1 || propiedadCompradaPor[numCasilla] == 2 || propiedadCompradaPor[numCasilla] == 3 || propiedadCompradaPor[numCasilla] == 4 ){
-                dineroJugadores[propiedadCompradaPor[numCasilla]-1] = dineroJugadores[propiedadCompradaPor[numCasilla]-1] + impuesto;
-                PagarActualizar();
-            }
-        }
-        
-        if ((turno == 1 || turno ==2 || turno == 3 || turno == 4) && (numCasilla == 4)) {
-            JOptionPane.showMessageDialog(this, " Impuesto Cobrado ");
+            PagarActualizar(); 
+        }       
+        if ((turno == 1 || turno ==2 || turno == 3 || turno == 4) && numCasilla == 4) {
             dineroJugadores[turno-1] = dineroJugadores[turno-1] - impuesto*2;
-                
-            if (propiedadCompradaPor[numCasilla] == 1 || propiedadCompradaPor[numCasilla] == 2 || propiedadCompradaPor[numCasilla] == 3 || propiedadCompradaPor[numCasilla] == 4 ){
-                dineroJugadores[propiedadCompradaPor[numCasilla]-1] = dineroJugadores[propiedadCompradaPor[numCasilla]-1] + impuesto*2;
-                PagarActualizar();
-            }
+            PagarActualizar();
         }
     }
     
+    private void tarjetaCajaComunal(){
+        Random r1 = new Random();
+
+        int numMensaje = r1.nextInt(16)+1;
+        
+        switch(numMensaje){
+            case 1:{
+                JOptionPane.showMessageDialog(this, "Vaya A La Carcel");
+            }break;
+            
+            case 2:{
+                JOptionPane.showMessageDialog(this, "Pague 1000Bs ");
+            }break;
+            
+            case 3:{
+                JOptionPane.showMessageDialog(this, "pague al banco 400Bs");
+            }break;
+            
+            case 4:{
+                JOptionPane.showMessageDialog(this, "Salga Gratis de la Carcel;");
+            }break;
+            
+            case 5:{
+                JOptionPane.showMessageDialog(this, "Cobre 50Bs;");
+            }break;
+                
+            case 6:{
+                JOptionPane.showMessageDialog(this, " un Abrazo ");
+            }break;
+                
+            case 7:{
+                JOptionPane.showMessageDialog(this, "Un Regalo;");
+            }break;
+                    
+            case 8:{
+                JOptionPane.showMessageDialog(this, "pague al banco 600;");
+                
+            }break;
+                
+            case 9:{
+                JOptionPane.showMessageDialog(this, "pague al banco 250;");
+                
+            }break;
+                
+            case 10:{
+                JOptionPane.showMessageDialog(this, "pague al banco 800;");
+            }break;
+                
+            case 11:{
+                
+                JOptionPane.showMessageDialog(this, "Cobre 500");
+            }break;
+                
+            case 12:{
+                JOptionPane.showMessageDialog(this, "vaya a salida");
+            }
+            
+            case 13:{
+                JOptionPane.showMessageDialog(this, "valla para la atlantico");
+            }break;
+                
+            case 14:{
+                JOptionPane.showMessageDialog(this, "ir a univerdidad;");
+            }break;
+             
+            case 15:{
+                JOptionPane.showMessageDialog(this, "Recibe 500");
+            }break;
+                
+            case 16:{
+                JOptionPane.showMessageDialog(this, "Marian");
+            }break;
+        
+        }
+        
+    }
     
-    
+     private void tarjetaSuerte(){
+        Random r1 = new Random();
+
+        int numMensaje = r1.nextInt(16)+1;
+        
+        switch(numMensaje){
+            case 1:{
+                JOptionPane.showMessageDialog(this, "Avance hasta la reodoma Chilemex");
+            }break;
+            
+            case 2:{
+                JOptionPane.showMessageDialog(this, "Vaya a la salida;");
+            }break;
+            
+            case 3:{
+                JOptionPane.showMessageDialog(this, "Valla a la plaza");
+            }break;
+            
+            case 4:{
+                JOptionPane.showMessageDialog(this, "Cobre 150 $ ");
+                
+            }break;
+            
+            case 5:{
+                JOptionPane.showMessageDialog(this, "Vanda a la cartelero");
+   
+            }break;
+                
+            case 6:{
+                JOptionPane.showMessageDialog(this, " Salir de la carcel");
+            }break;
+                
+            case 7:{
+                JOptionPane.showMessageDialog(this, "Un Regalo;");
+            }break;
+                    
+            case 8:{
+                JOptionPane.showMessageDialog(this, "Te quiero, tranquila desoues hablamos");
+            }break;
+                
+            case 9:{
+                JOptionPane.showMessageDialog(this, "pague al banco 250;");
+                
+            }break;
+                
+            case 10:{
+                JOptionPane.showMessageDialog(this, "pague al banco 800;");
+            }break;
+                
+            case 11:{
+                
+                JOptionPane.showMessageDialog(this, "Cobre 500");
+            }break;
+                
+            case 12:{
+                JOptionPane.showMessageDialog(this, "vaya a salida");
+            }
+            
+            case 13:{
+                JOptionPane.showMessageDialog(this, "valla para la Carcel");
+            }break;
+                
+            case 14:{
+                JOptionPane.showMessageDialog(this, "Usu jugo se ve coomo si tuviera dias hay.");
+            }break;
+             
+            case 15:{
+                JOptionPane.showMessageDialog(this, "Recibe 500");
+            }break;
+                
+            case 16:{
+                JOptionPane.showMessageDialog(this, "Felez Dia");
+            }break;
+        }
+        
+    }
     
     
     private void mostrarTarjeta(int numCasilla) {
@@ -1918,17 +2887,35 @@ public class Tablero extends javax.swing.JFrame {
         //Fin de compañias
         
         
-        //inicio De Suerte 
-        if(numCasilla==7){          
-            JOptionPane.showMessageDialog(this, "Tarjeta: Casilla De Suerte");
+        // inicio Impuestos      
+        if(numCasilla==4){
+            pagarImpuesto(numCasilla);
+            JOptionPane.showMessageDialog(this, "Deuda Pagada");
         }
+        
+        
+        if(numCasilla==38){
+            pagarImpuesto(numCasilla);
+            JOptionPane.showMessageDialog(this, "Deuda Pagada");
+        }       
+        //Fin impuestos
+        
+        
+        //inicio De Suerte 
+        if(numCasilla==7){   
+            JOptionPane.showMessageDialog(this, " Tarjeta: Casilla De Suerte");
+            tarjetaSuerte();
+        }       
+                       
         
         if(numCasilla==22){          
             JOptionPane.showMessageDialog(this, " Tarjeta: Casilla De Suerte");
+            tarjetaSuerte();
         }
         
         if(numCasilla==36){          
-            JOptionPane.showMessageDialog(this, "Tarjeta: Casilla De Suerte");
+            JOptionPane.showMessageDialog(this, " Tarjeta: Casilla De Suerte");
+            tarjetaSuerte();
         }
         //Fin de Suerte 
         
@@ -1936,10 +2923,12 @@ public class Tablero extends javax.swing.JFrame {
         //Inicio de Caja Comunal
         if(numCasilla==2){          
             JOptionPane.showMessageDialog(this, "Tarjeta: Caja Comunal");
+            tarjetaSuerte();
         }
         
         if(numCasilla==17){          
             JOptionPane.showMessageDialog(this, "Tarjeta: Caja Comunal");
+            tarjetaSuerte(); tarjetaSuerte();           
         }
         
         if(numCasilla==33){          
@@ -2073,29 +3062,33 @@ public class Tablero extends javax.swing.JFrame {
         if (dineroJugadores[turno-1] <= 0)
             if(turno == 1){
                 JOptionPane.showMessageDialog(this," Jugador 1 Ha sido eliminado ");
+                jLabelFicha1.setEnabled(false);
                 //jLabelFicha1.setVisible(false);
-                jLabelFicha1.setLocation(1000,1000);
+               // jLabelFicha1.setLocation(1000,1000);
                 numCasilla1 = 0;
                 posicion_ficha1 = 0;
             }
             if(turno == 2){
                 JOptionPane.showMessageDialog(this," Jugador 2 Ha sido eliminado ");
+                jLabelFicha2.setEnabled(false);
                 //jLabelFicha2.setVisible(false);                
-                jLabelFicha2.setLocation(1000,1000);
+               // jLabelFicha2.setLocation(1000,1000);
                 numCasilla2 = 0;
                 posicion_ficha2 = 0;
             }
             if(turno == 3){
                 JOptionPane.showMessageDialog(this," Jugador 3 Ha sido eliminado ");
+                jLabelFicha3.setEnabled(false);
                 //jLabelFicha3.setVisible(false);
-                jLabelFicha3.setLocation(1000,1000);
+                //jLabelFicha3.setLocation(1000,1000);
                 numCasilla3 = 0;
                 posicion_ficha3 = 0;
             }
             if(turno == 4){
                 JOptionPane.showMessageDialog(this," Jugador 4 Ha sido eliminado ");
+                jLabelFicha4.setEnabled(false);
                 //jLabelFicha4.setVisible(false);
-                jLabelFicha4.setLocation(1000,1000);
+               // jLabelFicha4.setLocation(1000,1000);
                 numCasilla4 = 0;
                 posicion_ficha4 = 0;
                 
@@ -2121,7 +3114,7 @@ public class Tablero extends javax.swing.JFrame {
     private void eliminarJugador(){
         if(dineroJugadores[turno-1] <= 0){
             bancaRota();
-            turno = turno + 1;
+            //turno = turno + 1;
         }
     }
 }
