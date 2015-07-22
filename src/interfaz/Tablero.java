@@ -21,8 +21,8 @@ public class Tablero extends javax.swing.JFrame {
      */
     public static String alias;
     
-    private int turno = 0;              //Simula al jugador Actual
-    private int jugarDado = 0;
+    private int turno = 1;              //Simula al jugador Actual
+    private int jugarDado = 1;
     
     private int mover1 = 1;
     private int mover2 = 1;
@@ -305,19 +305,11 @@ public class Tablero extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelFicha1MouseClicked
 
     private void btnJugarDadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarDadoActionPerformed
+            
+        jugarDados();
+        obtenerTurno(); 
+       // eliminarJugador(); //busca Si hay usruarios en banca rota y los elimina aumentando el turno.
         
-        if (jugarDado >= 4){
-            jugarDado = 1;           
-        }else{
-            jugarDado = jugarDado + 1;
-        }
-        
-        if (turno >= 4){
-            turno = 1;
-        }else{
-            turno = turno +1;
-        }
-              
         cadena4 = String.valueOf(turno);           
         txtTurno.setText(cadena4);
         
@@ -325,14 +317,12 @@ public class Tablero extends javax.swing.JFrame {
         Random r2 = new Random();
         
         valorDado1 = r1.nextInt(6)+1;
-        valorDado2 = r2.nextInt(6)+1;
-        
+        valorDado2 = r2.nextInt(6)+1;        
         avanzarCasillas = valorDado1 + valorDado2; 
         
         cadena1 = String.valueOf(valorDado1);
         cadena2 = String.valueOf(valorDado2);       
-        cadena3 = String.valueOf(avanzarCasillas);
-        
+        cadena3 = String.valueOf(avanzarCasillas);       
         txtDado1.setText(cadena1);
         txtDado2.setText(cadena2);
         txtAvanzarCasillas.setText(cadena3);
@@ -344,6 +334,7 @@ public class Tablero extends javax.swing.JFrame {
             System.out.println("turno: " + turno + " avanzar casillas: " + avanzarCasillas);
             
             if (mover1 == 1){
+              //  eliminarJugador(); //busca Si hay usruarios en banca rota y los elimina aumentando el turno.
                 moverFicha1();
             }else{
                 if (mover1 < 1){
@@ -427,7 +418,7 @@ public class Tablero extends javax.swing.JFrame {
         }
         
         recibeBonus();
-        
+       
     }//GEN-LAST:event_btnJugarDadoActionPerformed
 
     private void jLabelFicha2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabelFicha2MouseClicked
@@ -967,26 +958,37 @@ public class Tablero extends javax.swing.JFrame {
     
     
     
-    /*private void comprarCasa(int numCasilla){
+    private void comprarCasa(int numCasilla,int valorCasa){
         int opcion;
-        opcion = JOptionPane.showConfirmDialog(this, "¿Desea comprar esta casilla?", "compra", JOptionPane.YES_NO_OPTION);
+        opcion = JOptionPane.showConfirmDialog(this, "¿Desea comprar una casa?", "compra", JOptionPane.YES_NO_OPTION);
         if(opcion == JOptionPane.YES_OPTION){
             
             if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
-                dineroJugadores[turno-1] = dineroJugadores[turno-1] - ValorCasaAñi;
+                dineroJugadores[turno-1] = dineroJugadores[turno-1] - valorCasa;
                 propiedadCompradaPor[numCasilla] = turno; // Aqui Obtenemos al propietario de la casa
                 actualizarDinero();
             }                                                               
         }
-    }**/
+    }
     
-    private void comprarHotel(){}
+    private void comprarHotel(int numCasilla,int valorHotel){
+        int opcion;
+        opcion = JOptionPane.showConfirmDialog(this, "¿Desea comprar una casa?", "compra", JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.YES_OPTION){
+            
+            if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                dineroJugadores[turno-1] = dineroJugadores[turno-1] - valorHotel;
+                propiedadCompradaPor[numCasilla] = turno; // Aqui Obtenemos al propietario de la casa
+                actualizarDinero();
+            }                                                               
+        }
+    }
     
     
     
     private void pagarCalleAñil(int numCasilla){
         
-        JOptionPane.showMessageDialog(this, "soy Pagar Añil");
+        JOptionPane.showMessageDialog(this, " Añil: Debes pagar una cuota por caer en esta casilla ");
         System.out.println("el jugador " + turno + " le paga a jugador " + propiedadCompradaPor[numCasilla]);
             
             // pago normal
@@ -1055,7 +1057,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void pagarCalleCeleste(int numCasilla){
-            JOptionPane.showMessageDialog(this, "soy Pagar Celeste");
+            JOptionPane.showMessageDialog(this, " Celeste: Debes pagar una cuota por caer en esta casilla ");
             System.out.println("el jugador " + turno + " le paga a jugador " + propiedadCompradaPor[numCasilla]);
             
             // pago normal
@@ -1125,7 +1127,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void pagarCalleMorado(int numCasilla){
-            JOptionPane.showMessageDialog(this, "soy Pagar Morado");
+            JOptionPane.showMessageDialog(this, " Morado: Debes pagar una cuota por caer en esta casilla ");
             System.out.println("el jugador " + turno + " le paga a jugador " + propiedadCompradaPor[numCasilla]);
             
             // pago normal
@@ -1195,7 +1197,7 @@ public class Tablero extends javax.swing.JFrame {
     }
 
     private void pagarCalleNaranja(int numCasilla){
-            JOptionPane.showMessageDialog(this, "soy Pagar Naranja");
+            JOptionPane.showMessageDialog(this, " Naranja: Debes pagar una cuota por caer en esta casilla ");
             System.out.println("el jugador " + turno + " le paga a jugador " + propiedadCompradaPor[numCasilla]);
             
             // pago normal
@@ -1265,7 +1267,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void pagarCalleRojo(int numCasilla){
-            JOptionPane.showMessageDialog(this, "soy Pagar Rojo");
+            JOptionPane.showMessageDialog(this, " Rojo: Debes pagar una cuota por caer en esta casilla ");
             System.out.println("el jugador " + turno + " le paga a jugador " + propiedadCompradaPor[numCasilla]);
             
             // pago normal
@@ -1335,7 +1337,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void pagarCalleAmarillo(int numCasilla){
-            JOptionPane.showMessageDialog(this, "soy Pagar Amarillo");
+            JOptionPane.showMessageDialog(this, " Amarillo: Debes pagar una cuota por caer en esta casilla ");
             System.out.println("el jugador " + turno + " le paga a jugador " + propiedadCompradaPor[numCasilla]);
             
             // pago normal
@@ -1405,7 +1407,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void pagarCalleVerde(int numCasilla){
-            JOptionPane.showMessageDialog(this, "soy Pagar Verde");
+            JOptionPane.showMessageDialog(this, " Verde: Debes pagar una cuota por caer en esta casilla ");
             System.out.println("el jugador " + turno + " le paga a jugador " + propiedadCompradaPor[numCasilla]);
             
             // pago normal
@@ -1476,7 +1478,7 @@ public class Tablero extends javax.swing.JFrame {
     
     private void pagarCalleAzul(int numCasilla){
         
-        JOptionPane.showMessageDialog(this, "soy Pagar Azul");
+        JOptionPane.showMessageDialog(this, " Azul: Debes pagar una cuota por caer en esta casilla ");
         System.out.println("el jugador " + turno + " le paga a jugador " + propiedadCompradaPor[numCasilla]);
             
             // pago normal
@@ -1545,6 +1547,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void pagarEstacion(int numCasilla){
+        JOptionPane.showMessageDialog(this, " Estacion: Debes pagar una cuota por caer en esta casilla ");
         if ((turno == 1 || turno ==2 || turno == 3 || turno == 4) && numEstacion == 1) {
             dineroJugadores[turno-1] = dineroJugadores[turno-1] - pagarPorEstacion;
                 
@@ -1583,7 +1586,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void pagarCompañia(int numCasilla){
-        
+        JOptionPane.showMessageDialog(this, " Compañia: Debes pagar una cuota por caer en esta casilla ");
         if ((turno == 1 || turno ==2 || turno == 3 || turno == 4) && numCompañia == 1) {
             dineroJugadores[turno-1] = dineroJugadores[turno-1] - avanzarCasillas*4;
                 
@@ -1604,6 +1607,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void pagarImpuesto(int numCasilla){
+        JOptionPane.showMessageDialog(this, " Impuesto: Debes pagar una cuota por caer en esta casilla ");
         if ((turno == 1 || turno ==2 || turno == 3 || turno == 4) && (numCasilla == 38)) {
             JOptionPane.showMessageDialog(this, " Impuesto Cobrado ");
             dineroJugadores[turno-1] = dineroJugadores[turno-1] - impuesto;
@@ -1920,7 +1924,7 @@ public class Tablero extends javax.swing.JFrame {
         }
         
         if(numCasilla==22){          
-            JOptionPane.showMessageDialog(this, " Tarfeta: Casilla De Suerte");
+            JOptionPane.showMessageDialog(this, " Tarjeta: Casilla De Suerte");
         }
         
         if(numCasilla==36){          
@@ -1953,44 +1957,53 @@ public class Tablero extends javax.swing.JFrame {
             // Espera un turno y paga 500Bs
             if (opcion2 == JOptionPane.YES_NO_OPTION){
                 if (turno == 1){
+                    JOptionPane.showMessageDialog(this, "Esta en la Carcel");
                     jLabelFicha1.setLocation(35, 635);
                     dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    actualizarDinero();
                     mover1 = 0;          
                 }
                 if (turno == 2){
+                    JOptionPane.showMessageDialog(this, "Esta en la Carcel");
                     jLabelFicha2.setLocation(35, 635);
                     dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    actualizarDinero();
                     mover2 = 0;
                 }
                 if (turno == 3){
+                    JOptionPane.showMessageDialog(this, "Esta en la Carcel");
                     jLabelFicha3.setLocation(35, 635);
                     dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    actualizarDinero();
                     mover3 = 0;
                 }
                 if (turno == 4){
+                    JOptionPane.showMessageDialog(this, "Esta en la Carcel");
                     jLabelFicha4.setLocation(35, 635);
                     dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    actualizarDinero();
                     mover4 = 0;
                 }          
             }
             
             // Espera 3 turnos, en el cuarto turno juega
             if (opcion2 == JOptionPane.NO_OPTION){
+                JOptionPane.showMessageDialog(this, "Despueste de 3 turnos podras avanzar nuevamente y pagaras 500");
                 if (turno == 1){
                     jLabelFicha1.setLocation(35, 635);
-                    mover1 = -3;
+                    mover1 = -2;
                 }
                 if (turno == 2){
                     jLabelFicha2.setLocation(35, 635);
-                    mover2 = -3;
+                    mover2 = -2;
                 }
                 if (turno == 3){
                     jLabelFicha3.setLocation(35, 635);
-                    mover3 = -3;
+                    mover3 = -2;
                 }
                 if (turno == 4){
                     jLabelFicha4.setLocation(35, 635);
-                    mover4 = -3;
+                    mover4 = -2;
                 }
             }
             
@@ -2034,26 +2047,81 @@ public class Tablero extends javax.swing.JFrame {
             numCasilla1 = numCasilla1 - 40;
             dineroJugadores[0] = dineroJugadores[0] + 2000;
             PagarActualizar();
-            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000");
+            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
         if (numCasilla2 >= 40){
             numCasilla2 = numCasilla2 - 40;
             dineroJugadores[1] = dineroJugadores[1] + 2000;
             PagarActualizar();
-            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000");
+            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
         if (numCasilla3 >= 40){
             numCasilla3 = numCasilla3 - 40;
             dineroJugadores[2] = dineroJugadores[2] + 2000;
             PagarActualizar();
-            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000");
+            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
         if (numCasilla4 >= 40){
             numCasilla4 = numCasilla4 - 40;
             dineroJugadores[3] = dineroJugadores[3] + 2000;
             PagarActualizar();
-            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000");
+            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno );
         }
     }
     
+    private void bancaRota(){
+        if (dineroJugadores[turno-1] <= 0)
+            if(turno == 1){
+                JOptionPane.showMessageDialog(this," Jugador 1 Ha sido eliminado ");
+                //jLabelFicha1.setVisible(false);
+                jLabelFicha1.setLocation(1000,1000);
+                numCasilla1 = 0;
+                posicion_ficha1 = 0;
+            }
+            if(turno == 2){
+                JOptionPane.showMessageDialog(this," Jugador 2 Ha sido eliminado ");
+                //jLabelFicha2.setVisible(false);                
+                jLabelFicha2.setLocation(1000,1000);
+                numCasilla2 = 0;
+                posicion_ficha2 = 0;
+            }
+            if(turno == 3){
+                JOptionPane.showMessageDialog(this," Jugador 3 Ha sido eliminado ");
+                //jLabelFicha3.setVisible(false);
+                jLabelFicha3.setLocation(1000,1000);
+                numCasilla3 = 0;
+                posicion_ficha3 = 0;
+            }
+            if(turno == 4){
+                JOptionPane.showMessageDialog(this," Jugador 4 Ha sido eliminado ");
+                //jLabelFicha4.setVisible(false);
+                jLabelFicha4.setLocation(1000,1000);
+                numCasilla4 = 0;
+                posicion_ficha4 = 0;
+                
+            }
+    }
+    
+    private void jugarDados(){
+        if (jugarDado >= 4){
+            jugarDado = 1;           
+        }else{
+            jugarDado = jugarDado + 1;
+        }
+    }
+    
+    private void obtenerTurno(){
+        if (turno >= 4){
+            turno = 1;
+        }else{
+            turno = turno +1; 
+        }
+    }
+    
+    private void eliminarJugador(){
+        if(dineroJugadores[turno-1] <= 0){
+            bancaRota();
+            turno = turno + 1;
+        }
+    }
 }
