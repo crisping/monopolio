@@ -340,6 +340,7 @@ public class Tablero extends javax.swing.JFrame {
         if (turno == 1){
             numCasilla1 = numCasilla1 + avanzarCasillas;
             posicion_ficha1 = posicion_ficha1 + avanzarCasillas;
+            
             System.out.println("turno: " + turno + " avanzar casillas: " + avanzarCasillas);
             
             if (mover1 == 1){
@@ -356,6 +357,7 @@ public class Tablero extends javax.swing.JFrame {
                     numCasilla1 = 10;
                 }
             }
+            System.out.println(mover1);
         }
         
         if (turno == 2){
@@ -377,7 +379,7 @@ public class Tablero extends javax.swing.JFrame {
                     numCasilla2 = 10;
                 }
             }
-            
+            System.out.println(mover2);
         }
         
         if (turno == 3){
@@ -399,6 +401,7 @@ public class Tablero extends javax.swing.JFrame {
                     numCasilla3 = 10;
                 }
             }
+            System.out.println(mover3);
         } 
         
         if (turno == 4){
@@ -420,6 +423,7 @@ public class Tablero extends javax.swing.JFrame {
                     numCasilla4 = 10;
                 }
             }
+            System.out.println(mover4);
         }
         
         recibeBonus();
@@ -785,6 +789,8 @@ public class Tablero extends javax.swing.JFrame {
         }
     }
     
+    
+    
     private void PagarActualizar(){      
         
         System.out.println("Pagando");
@@ -830,7 +836,7 @@ public class Tablero extends javax.swing.JFrame {
     
     
     private void comprarCalleAñil(int numCasilla){
-    int opcion;
+        int opcion;
         opcion = JOptionPane.showConfirmDialog(this, "¿Desea comprar esta casilla?", "compra", JOptionPane.YES_NO_OPTION);
         if(opcion == JOptionPane.YES_OPTION){
             
@@ -961,9 +967,22 @@ public class Tablero extends javax.swing.JFrame {
     
     
     
+    /*private void comprarCasa(int numCasilla){
+        int opcion;
+        opcion = JOptionPane.showConfirmDialog(this, "¿Desea comprar esta casilla?", "compra", JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.YES_OPTION){
+            
+            if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                dineroJugadores[turno-1] = dineroJugadores[turno-1] - ValorCasaAñi;
+                propiedadCompradaPor[numCasilla] = turno; // Aqui Obtenemos al propietario de la casa
+                actualizarDinero();
+            }                                                               
+        }
+    }**/
+    
+    private void comprarHotel(){}
     
     
-      
     
     private void pagarCalleAñil(int numCasilla){
         
@@ -1619,7 +1638,7 @@ public class Tablero extends javax.swing.JFrame {
         }else{
             if(numCasilla==1 && propiedadCompradaPor[numCasilla] != 0){
                 pagarCalleAñil(numCasilla);
-                JOptionPane.showMessageDialog(this, "Paga");
+                JOptionPane.showMessageDialog(this, "Deuda Pagada");
             }
         }
               
@@ -1628,7 +1647,7 @@ public class Tablero extends javax.swing.JFrame {
         }else{
             if(numCasilla==3 && propiedadCompradaPor[numCasilla] != 0){
                 pagarCalleAñil(numCasilla);
-                JOptionPane.showMessageDialog(this, "Paga");
+                JOptionPane.showMessageDialog(this, "Deuda Pagada");
             }
         }      
         //fin Del Sector Añil
@@ -1897,30 +1916,30 @@ public class Tablero extends javax.swing.JFrame {
         
         //inicio De Suerte 
         if(numCasilla==7){          
-            JOptionPane.showMessageDialog(this, "Casilla De Suerte");
+            JOptionPane.showMessageDialog(this, "Tarjeta: Casilla De Suerte");
         }
         
         if(numCasilla==22){          
-            JOptionPane.showMessageDialog(this, "Casilla De Suerte");
+            JOptionPane.showMessageDialog(this, " Tarfeta: Casilla De Suerte");
         }
         
         if(numCasilla==36){          
-            JOptionPane.showMessageDialog(this, "Casilla De Suerte");
+            JOptionPane.showMessageDialog(this, "Tarjeta: Casilla De Suerte");
         }
         //Fin de Suerte 
         
         
         //Inicio de Caja Comunal
         if(numCasilla==2){          
-            JOptionPane.showMessageDialog(this, "Caja Comunal");
+            JOptionPane.showMessageDialog(this, "Tarjeta: Caja Comunal");
         }
         
         if(numCasilla==17){          
-            JOptionPane.showMessageDialog(this, "Caja Comunal");
+            JOptionPane.showMessageDialog(this, "Tarjeta: Caja Comunal");
         }
         
         if(numCasilla==33){          
-            JOptionPane.showMessageDialog(this, "Caja Comunal");
+            JOptionPane.showMessageDialog(this, "Tarjeta: Caja Comunal");
         }
         //Fin Caja Comunal
         
@@ -1931,26 +1950,31 @@ public class Tablero extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Has Sido Enviado A La Carcel");
             opcion2 = JOptionPane.showConfirmDialog(this, "Si quieres Salie de la Carcel Debes esperar un Turno y pagar 500Bs");
             
+            // Espera un turno y paga 500Bs
             if (opcion2 == JOptionPane.YES_NO_OPTION){
                 if (turno == 1){
                     jLabelFicha1.setLocation(35, 635);
-                    mover1 = 0;
-                    
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    mover1 = 0;          
                 }
                 if (turno == 2){
                     jLabelFicha2.setLocation(35, 635);
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
                     mover2 = 0;
                 }
                 if (turno == 3){
                     jLabelFicha3.setLocation(35, 635);
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
                     mover3 = 0;
                 }
                 if (turno == 4){
                     jLabelFicha4.setLocation(35, 635);
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
                     mover4 = 0;
                 }          
             }
             
+            // Espera 3 turnos, en el cuarto turno juega
             if (opcion2 == JOptionPane.NO_OPTION){
                 if (turno == 1){
                     jLabelFicha1.setLocation(35, 635);
