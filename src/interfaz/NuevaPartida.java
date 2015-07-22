@@ -126,8 +126,6 @@ public class NuevaPartida extends javax.swing.JFrame {
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("AliasJ1");
 
-        txtAliasJ1.setEditable(false);
-
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 153, 0));
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -387,6 +385,7 @@ public class NuevaPartida extends javax.swing.JFrame {
 
     private void btnCrearPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPartidaActionPerformed
         if(crearPartida()){
+            txtIdPartida.setText(db.getIdUltimaPartida());
             JOptionPane.showMessageDialog(this, "Partida creada con el id:"+ txtIdPartida.getText());
             Tablero.main(null);
             Tablero.alias=alias;
@@ -466,7 +465,6 @@ public class NuevaPartida extends javax.swing.JFrame {
     }
     
     public void cargarValoresPorDefecto(){
-        txtAliasJ1.setText(alias);
         txtAliasJ3.setEditable(false);
         txtAliasJ4.setEditable(false);
         cboCasas.setSelectedIndex(2);

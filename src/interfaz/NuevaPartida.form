@@ -332,9 +332,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="txtAliasJ1">
-      <Properties>
-        <Property name="editable" type="boolean" value="false"/>
-      </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JFormattedTextField()"/>
       </AuxValues>

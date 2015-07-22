@@ -11,6 +11,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,8 +30,9 @@ public class DataBase {
         if (connection != null) {
             return false;
         }
-
-        String url = "jdbc:postgresql://localhost:5432/monopolio";
+        //cambiar 192.168.0.100 por la ip de la pc en la que esta alojada la base de datos
+        //o simplemente localhost para que se conecte a la misma pc.
+        String url = "jdbc:postgresql://192.168.0.103:5432/monopolio";
         String password = "uneg";
         try {
             Class.forName("org.postgresql.Driver");
@@ -165,9 +168,20 @@ public class DataBase {
     }
 
     public boolean addPartida(int casas, int hoteles, int turnosCarcel, int duracion, int dineroInicial, int dineroPorVuelta, int impuestoLujo, int impuestoCapital, int fianza, String admin, String aliasJ1, String aliasJ2, String aliasJ3, String aliasJ4) {
-        sql ="SELECT crear_partida("+casas+","+hoteles+","+ turnosCarcel+","+ duracion+","+ dineroInicial+","+ dineroPorVuelta+","+ impuestoLujo+","+ impuestoCapital+","+ fianza+",'"+ admin+"','"+ aliasJ1+"','"+ aliasJ2+"','"+ aliasJ3+"','"+aliasJ4+"')";
-        JOptionPane.showMessageDialog(null, sql);
-        return true;
+        try {
+            sql ="SELECT crear_partida("+casas+","+hoteles+","+ turnosCarcel+","+ duracion+","+ dineroInicial+","+ dineroPorVuelta+","+ impuestoLujo+","+ impuestoCapital+","+ fianza+",'"+ admin+"','"+ aliasJ1+"','"+ aliasJ2+"','"+ aliasJ3+"','"+aliasJ4+"')";
+            
+            rs = st.executeQuery(sql);
+            
+            if(rs.next()){
+                return true;
+            }
+            else
+                return false;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+            return false;
+        }
     }
 
     public String getIdNuevaPartida() {
@@ -178,6 +192,22 @@ public class DataBase {
         
         if(rs.next())
             return String.valueOf(rs.getInt(1)+1);
+        return "1";
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
+            return "-1";
+        }
+        
+    }
+    
+    public String getIdUltimaPartida() {
+        try {
+            sql = "SELECT MAX(id) FROM partidas";
+        
+            rs = st.executeQuery(sql);
+        
+        if(rs.next())
+            return String.valueOf(rs.getInt(1));
         return "1";
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
