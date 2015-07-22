@@ -215,19 +215,37 @@ public class DataBase {
         }
         
     }
-
-    public void informe(String alias, int id) {
-        sql = "actualizar_informe('"+alias+"','"+id+"')";
+    
+    public ArrayList<Integer> getIdPartidasAdministrador(String administrador){
+        ArrayList<Integer> a = new ArrayList<>();
+        sql = "select id from partidas where administrador = '"+administrador+"' group by id";
         try {
             rs = st.executeQuery(sql);
+            while (rs.next()){
+                a.add(rs.getInt(1));
+            }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+        if (a.isEmpty()) return null;
+        return a;
     }
     
-    public ArrayList<InformePartida> getInformePartidas(String alias, String id){
-        
-        return null;
+    public ArrayList<InformePartida> getInformePartidas(String id){
+        sql = "select * from informes where partida = '"+id+"'";
+        ArrayList<InformePartida> inf = new ArrayList<>();
+        try {
+            rs = st.executeQuery(sql);
+            InformePartida nueva = new InformePartida(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+            inf.add(nueva);
+            while(rs.next()){
+                
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        if (inf.isEmpty()) return null;
+        return inf;
     }
     
 }
