@@ -548,8 +548,7 @@ public class Tablero extends javax.swing.JFrame {
                                                                                          
             if (esquina == 2){
                 if (paso == 1){
-                    posicion_ficha1 = posicion_ficha1 - 10;
-                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
+                    posicion_ficha1 = posicion_ficha1 - 10;                   
                     paso = 2;
                 }
 
@@ -559,13 +558,12 @@ public class Tablero extends javax.swing.JFrame {
                     jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
                     mostrarTarjeta(numCasilla1);
                 }        
-                //jLabelFicha1.setLocation(30,635);
+                
             }
 
             if(esquina == 3){
                 if (paso == 2){
-                    posicion_ficha1 = posicion_ficha1 - 10;
-                   // jLabelFicha1.setLocation(60,30);
+                    posicion_ficha1 = posicion_ficha1 - 10;                   
                     paso = 3;
                 }
 
@@ -579,8 +577,7 @@ public class Tablero extends javax.swing.JFrame {
 
             if(esquina == 4){
                 if(paso == 3){
-                    posicion_ficha1 = posicion_ficha1 - 10;
-                   // jLabelFicha1.setLocation(40, 40);
+                    posicion_ficha1 = posicion_ficha1 - 10;                  
                     paso = 4;
                 }
 
@@ -613,8 +610,7 @@ public class Tablero extends javax.swing.JFrame {
 
             if (esquina2 == 2){
                 if (paso2 == 1){
-                    posicion_ficha2 = posicion_ficha2 - 10;
-                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
+                    posicion_ficha2 = posicion_ficha2 - 10;                    
                     paso2 = 2;
                 }
 
@@ -623,14 +619,12 @@ public class Tablero extends javax.swing.JFrame {
                 }else{
                     jLabelFicha2.setLocation(30,635-(59*posicion_ficha2));
                     mostrarTarjeta(numCasilla2);
-                }        
-                //jLabelFicha1.setLocation(30,635);
+                }                       
             }
 
             if(esquina2 == 3){
                 if (paso2 == 2){
-                    posicion_ficha2 = posicion_ficha2 - 10;
-                   // jLabelFicha1.setLocation(60,30);
+                    posicion_ficha2 = posicion_ficha2 - 10;                   
                     paso2 = 3;
                 }
 
@@ -644,8 +638,7 @@ public class Tablero extends javax.swing.JFrame {
 
             if(esquina2 == 4){
                 if(paso2 == 3){
-                    posicion_ficha2 = posicion_ficha2 - 10;
-                   // jLabelFicha1.setLocation(40, 40);
+                    posicion_ficha2 = posicion_ficha2 - 10;                  
                     paso2 = 4;
                 }
 
@@ -679,7 +672,7 @@ public class Tablero extends javax.swing.JFrame {
             if (esquina3 == 2){
                 if (paso3 == 1){
                     posicion_ficha3 = posicion_ficha3 - 10;
-                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
+                    
                     paso3 = 2;
                 }
 
@@ -689,13 +682,13 @@ public class Tablero extends javax.swing.JFrame {
                     jLabelFicha3.setLocation(30,635-(59*posicion_ficha3));
                     mostrarTarjeta(numCasilla3);
                 }        
-                //jLabelFicha1.setLocation(30,635);
+                
             }
 
             if(esquina3 == 3){
                 if (paso3 == 2){
                     posicion_ficha3 = posicion_ficha3 - 10;
-                   // jLabelFicha1.setLocation(60,30);
+                   
                     paso3 = 3;
                 }
 
@@ -710,7 +703,7 @@ public class Tablero extends javax.swing.JFrame {
             if(esquina3 == 4){
                 if(paso3 == 3){
                     posicion_ficha3 = posicion_ficha3 - 10;
-                   // jLabelFicha1.setLocation(40, 40);
+                   
                     paso3 = 4;
                 }
 
@@ -744,7 +737,7 @@ public class Tablero extends javax.swing.JFrame {
             if (esquina4 == 2){
                 if (paso4 == 1){
                     posicion_ficha4 = posicion_ficha4 - 10;
-                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
+                    
                     paso4 = 2;
                 }
 
@@ -754,13 +747,13 @@ public class Tablero extends javax.swing.JFrame {
                     jLabelFicha4.setLocation(30,635-(59*posicion_ficha4));
                     mostrarTarjeta(numCasilla4);
                 }        
-                //jLabelFicha1.setLocation(30,635);
+                
             }
 
             if(esquina4 == 3){
                 if (paso4 == 2){
                     posicion_ficha4 = posicion_ficha4 - 10;
-                   // jLabelFicha1.setLocation(60,30);
+                   
                     paso4 = 3;
                 }
 
@@ -775,7 +768,7 @@ public class Tablero extends javax.swing.JFrame {
             if(esquina4 == 4){
                 if(paso4 == 3){
                     posicion_ficha4 = posicion_ficha4 - 10;
-                   // jLabelFicha1.setLocation(40, 40);
+                  
                     paso4 = 4;
                 }
 
@@ -967,20 +960,31 @@ public class Tablero extends javax.swing.JFrame {
     
     
     
-    /*private void comprarCasa(int numCasilla){
+    private void comprarCasa(int numCasilla,int valorCasa){
         int opcion;
-        opcion = JOptionPane.showConfirmDialog(this, "¿Desea comprar esta casilla?", "compra", JOptionPane.YES_NO_OPTION);
+        opcion = JOptionPane.showConfirmDialog(this, "¿Desea comprar una casa?", "compra", JOptionPane.YES_NO_OPTION);
         if(opcion == JOptionPane.YES_OPTION){
             
             if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
-                dineroJugadores[turno-1] = dineroJugadores[turno-1] - ValorCasaAñi;
+                dineroJugadores[turno-1] = dineroJugadores[turno-1] - valorCasa;
                 propiedadCompradaPor[numCasilla] = turno; // Aqui Obtenemos al propietario de la casa
                 actualizarDinero();
             }                                                               
         }
-    }**/
+    }
     
-    private void comprarHotel(){}
+    private void comprarHotel(int numCasilla,int valorHotel){
+        int opcion;
+        opcion = JOptionPane.showConfirmDialog(this, "¿Desea comprar una casa?", "compra", JOptionPane.YES_NO_OPTION);
+        if(opcion == JOptionPane.YES_OPTION){
+            
+            if (turno == 1 || turno == 2 || turno == 3 || turno == 4){
+                dineroJugadores[turno-1] = dineroJugadores[turno-1] - valorHotel;
+                propiedadCompradaPor[numCasilla] = turno; // Aqui Obtenemos al propietario de la casa
+                actualizarDinero();
+            }                                                               
+        }
+    }
     
     
     
@@ -1920,7 +1924,7 @@ public class Tablero extends javax.swing.JFrame {
         }
         
         if(numCasilla==22){          
-            JOptionPane.showMessageDialog(this, " Tarfeta: Casilla De Suerte");
+            JOptionPane.showMessageDialog(this, " Tarjeta: Casilla De Suerte");
         }
         
         if(numCasilla==36){          
@@ -1955,21 +1959,25 @@ public class Tablero extends javax.swing.JFrame {
                 if (turno == 1){
                     jLabelFicha1.setLocation(35, 635);
                     dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    actualizarDinero();
                     mover1 = 0;          
                 }
                 if (turno == 2){
                     jLabelFicha2.setLocation(35, 635);
                     dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    actualizarDinero();
                     mover2 = 0;
                 }
                 if (turno == 3){
                     jLabelFicha3.setLocation(35, 635);
                     dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    actualizarDinero();
                     mover3 = 0;
                 }
                 if (turno == 4){
                     jLabelFicha4.setLocation(35, 635);
                     dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    actualizarDinero();
                     mover4 = 0;
                 }          
             }
@@ -1978,19 +1986,19 @@ public class Tablero extends javax.swing.JFrame {
             if (opcion2 == JOptionPane.NO_OPTION){
                 if (turno == 1){
                     jLabelFicha1.setLocation(35, 635);
-                    mover1 = -3;
+                    mover1 = -2;
                 }
                 if (turno == 2){
                     jLabelFicha2.setLocation(35, 635);
-                    mover2 = -3;
+                    mover2 = -2;
                 }
                 if (turno == 3){
                     jLabelFicha3.setLocation(35, 635);
-                    mover3 = -3;
+                    mover3 = -2;
                 }
                 if (turno == 4){
                     jLabelFicha4.setLocation(35, 635);
-                    mover4 = -3;
+                    mover4 = -2;
                 }
             }
             
@@ -2034,25 +2042,25 @@ public class Tablero extends javax.swing.JFrame {
             numCasilla1 = numCasilla1 - 40;
             dineroJugadores[0] = dineroJugadores[0] + 2000;
             PagarActualizar();
-            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000");
+            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
         if (numCasilla2 >= 40){
             numCasilla2 = numCasilla2 - 40;
             dineroJugadores[1] = dineroJugadores[1] + 2000;
             PagarActualizar();
-            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000");
+            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
         if (numCasilla3 >= 40){
             numCasilla3 = numCasilla3 - 40;
             dineroJugadores[2] = dineroJugadores[2] + 2000;
             PagarActualizar();
-            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000");
+            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
         if (numCasilla4 >= 40){
             numCasilla4 = numCasilla4 - 40;
             dineroJugadores[3] = dineroJugadores[3] + 2000;
             PagarActualizar();
-            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000");
+            JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
     }
     
