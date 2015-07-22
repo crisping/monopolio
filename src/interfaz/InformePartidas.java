@@ -25,8 +25,10 @@ public class InformePartidas extends javax.swing.JFrame {
     
     public InformePartidas() {
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
         if(cargarId())
-            cboId.setSelectedIndex(-1);
+            cboId.setSelectedIndex(0);
         else{
             JOptionPane.showMessageDialog(this, "Usted no es administrador de ninguna partida");
             Perfil.main(null);
@@ -84,6 +86,11 @@ public class InformePartidas extends javax.swing.JFrame {
         jScrollPane1.setViewportView(tblInformePartidas);
 
         btnVolver.setText("Volver");
+        btnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolverActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Id de Partida:");
 
@@ -151,6 +158,11 @@ public class InformePartidas extends javax.swing.JFrame {
         cargarInforme();
     }//GEN-LAST:event_cboIdActionPerformed
 
+    private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
+        Perfil.main(null);
+        this.dispose();
+    }//GEN-LAST:event_btnVolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -198,10 +210,10 @@ public class InformePartidas extends javax.swing.JFrame {
 
     private void cargarInforme() {
         
-        ArrayList<InformePartida> informePartidas = db.getInformePartidas(alias, cboId.getSelectedItem().toString());
+        
+        ArrayList<InformePartida> informePartidas = db.getInformePartidas(cboId.getSelectedItem().toString());
         
         if(informePartidas!=null){
-            
             Collections.sort(informePartidas, new Comparator<InformePartida>(){
  
                 @Override
@@ -230,7 +242,12 @@ public class InformePartidas extends javax.swing.JFrame {
             for (InformePartida informePartida : informePartidas) {
                  addInformePartida(informePartida);
             }
+        }else{
+            while(modelo.getRowCount()>0)
+                modelo.removeRow(0);
+            
         }
+            
         
         
         
@@ -255,7 +272,7 @@ public class InformePartidas extends javax.swing.JFrame {
     }
 
     private boolean cargarId() {
-        ArrayList<Integer> ids = new ArrayList<Integer>();
+        ArrayList<Integer> ids = db.getIdPartidasAdministrador(alias);
         if(ids!=null){
             for (Integer id : ids) {
                 cboId.addItem(id);

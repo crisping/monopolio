@@ -32,7 +32,7 @@ public class DataBase {
         }
         //cambiar 192.168.0.100 por la ip de la pc en la que esta alojada la base de datos
         //o simplemente localhost para que se conecte a la misma pc.
-        String url = "jdbc:postgresql://192.198.0.103:5432/monopolio";
+        String url = "jdbc:postgresql://192.168.0.103:5432/monopolio";
         String password = "uneg";
         try {
             Class.forName("org.postgresql.Driver");
@@ -232,14 +232,14 @@ public class DataBase {
     }
     
     public ArrayList<InformePartida> getInformePartidas(String id){
-        sql = "select * from informes where partida = '"+id+"'";
+        sql = "select * from informes where id = '"+id+"'";
         ArrayList<InformePartida> inf = new ArrayList<>();
         try {
             rs = st.executeQuery(sql);
-            InformePartida nueva = new InformePartida(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
-            inf.add(nueva);
+            
             while(rs.next()){
-                
+                InformePartida nueva = new InformePartida(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+                inf.add(nueva);
             }
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());

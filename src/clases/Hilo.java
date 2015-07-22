@@ -9,6 +9,7 @@ package clases;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,9 +24,9 @@ public class Hilo implements Runnable{
         while(true){
             try {
                 this.wait(15);
-                db.informe(alias, id);
+                //db.informe(alias, id);
             } catch (InterruptedException ex) {
-                Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, ex.getMessage());
             }
         }
     }
