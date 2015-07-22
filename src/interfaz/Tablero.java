@@ -20,10 +20,6 @@ public class Tablero extends javax.swing.JFrame {
      * Creates new form tablero
      */
     public static String alias;
-    public static String aliasJ1;
-    public static String aliasJ2;
-    public static String aliasJ3;
-    public static String aliasJ4;
     
     private int turno = 0;              //Simula al jugador Actual
     private int jugarDado = 0;
@@ -310,9 +306,6 @@ public class Tablero extends javax.swing.JFrame {
 
     private void btnJugarDadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarDadoActionPerformed
         
-        
-            
-        
         if (jugarDado >= 4){
             jugarDado = 1;           
         }else{
@@ -324,9 +317,7 @@ public class Tablero extends javax.swing.JFrame {
         }else{
             turno = turno +1;
         }
-        
-        bancaRota();
-        
+              
         cadena4 = String.valueOf(turno);           
         txtTurno.setText(cadena4);
         
@@ -353,11 +344,6 @@ public class Tablero extends javax.swing.JFrame {
             
             if (mover1 == 1){
                 moverFicha1();
-                /*if(alias.equalsIgnoreCase(aliasJ1)){
-                    moverFicha1();
-                }else{
-                    JOptionPane.showMessageDialog(this, " No es Tu Turno ");
-                }*/
             }else{
                 if (mover1 < 1){
                     mover1 = mover1 + 1;
@@ -379,11 +365,6 @@ public class Tablero extends javax.swing.JFrame {
             
             if (mover2 == 1){
                 moverFicha2();
-                /*if(alias.equalsIgnoreCase(aliasJ2)){
-                    moverFicha2();
-                }else{
-                    JOptionPane.showMessageDialog(this, " No es Tu Turno ");
-                }*/
             }else{
                 if (mover2 < 1){
                     mover2 = mover2 + 1;
@@ -406,11 +387,6 @@ public class Tablero extends javax.swing.JFrame {
             
             if (mover3 == 1){
                 moverFicha3();
-                /*if(alias.equalsIgnoreCase(aliasJ3)){
-                    moverFicha3();
-                }else{
-                    JOptionPane.showMessageDialog(this, " No es Tu Turno ");
-                }*/
             }else{
                 if (mover3 < 1){
                     mover3 = mover3 + 1;
@@ -432,11 +408,6 @@ public class Tablero extends javax.swing.JFrame {
             
             if (mover4 == 1){
                 moverFicha4();
-                /*if(alias.equalsIgnoreCase(aliasJ4)){
-                    moverFicha4();
-                }else{
-                    JOptionPane.showMessageDialog(this, " No es Tu Turno ");
-                }*/
             }else{
                 if (mover4 < 1){
                     mover4 = mover4 + 1;
@@ -449,7 +420,8 @@ public class Tablero extends javax.swing.JFrame {
                     numCasilla4 = 10;
                 }
             }
-        }     
+        }
+        
         recibeBonus();
         
     }//GEN-LAST:event_btnJugarDadoActionPerformed
@@ -550,8 +522,7 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JTextField txtTurno;
     // End of variables declaration//GEN-END:variables
    
-    private void moverFicha1(){        
-    
+    private void moverFicha1(){
         xPosFicha=jLabelFicha1.getLocation().x;
         yPosFicha=jLabelFicha1.getLocation().y;
         
@@ -813,9 +784,6 @@ public class Tablero extends javax.swing.JFrame {
             }
         }
     }
-    
-    
-    
     
     private void PagarActualizar(){      
         
@@ -2062,31 +2030,6 @@ public class Tablero extends javax.swing.JFrame {
             PagarActualizar();
             JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000");
         }
-    }
-    
-    private void bancaRota(){
-        //if (turno == 1 || turno == 2 || turno ==3 || turno == 4){
-            if( dineroJugadores[turno-1]  <= 0 ){               
-                if(turno == 1){
-                    jLabelFicha1.setVisible(false);
-                    JOptionPane.showMessageDialog(this, " Usted ha sido eliminado de la partida porque esta en Banca Rota ");
-                    txtDineroJugador1.setText("0");
-                    txtDineroJugador1.setEditable(false);
-                }
-                if(turno == 2){
-                    jLabelFicha2.setVisible(false);
-                    JOptionPane.showMessageDialog(this, " Usted ha sido eliminado de la partida porque esta en Banca Rota ");
-                }
-                if(turno == 3){
-                    jLabelFicha3.setVisible(false);
-                    JOptionPane.showMessageDialog(this, " Usted ha sido eliminado de la partida porque esta en Banca Rota ");
-                }
-                if(turno == 4){
-                    jLabelFicha4.setVisible(false);
-                    JOptionPane.showMessageDialog(this, " Usted ha sido eliminado de la partida porque esta en Banca Rota ");
-                }
-            }
-        //}
     }
     
 }
