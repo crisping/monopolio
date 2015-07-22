@@ -6,6 +6,7 @@
 package interfaz;
 
 import clases.Banca;
+import clases.DataBase;
 import clases.Hilo;
 import clases.Partida;
 import java.util.Random;
@@ -24,7 +25,8 @@ public class Tablero extends javax.swing.JFrame {
     public Hilo hilo;//---
     
     public static String alias;
-    public static String idPartida; 
+    public static String idPartida;
+    public static DataBase db;
     
     private int cantidadJugadores;
     private int tiempo;
@@ -173,6 +175,8 @@ public class Tablero extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        
+        cargarPartida();
         
         //hilo = new Hilo();
         //hilo.run();//--
@@ -349,12 +353,19 @@ public class Tablero extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabelFicha1MouseClicked
 
     public void cargarPartida(){
-        Partida partida = null; //db.getpartida(idPartida);
+        Partida partida = db.getPartida(idPartida);
+        
+        
         
         aliasJ1 = partida.getAliasJ1();
         aliasJ2 = partida.getAliasJ2();
         aliasJ3 = partida.getAliasJ3();
         aliasJ4 = partida.getAliasJ4();
+        lblJ1.setText(partida.getAliasJ1());
+        lblJ2.setText(partida.getAliasJ2());
+        lblJ3.setText(partida.getAliasJ3());
+        lblJ4.setText(partida.getAliasJ4());
+        
         cantidadJugadores = Integer.parseInt(partida.getCantiadJugadores());
         numCasilla1 = Integer.parseInt(partida.getCasillaJ1());
         numCasilla2 = Integer.parseInt(partida.getCasillaJ2());
@@ -364,6 +375,10 @@ public class Tablero extends javax.swing.JFrame {
         txtDineroJugador2.setText(partida.getDineroJ2());
         txtDineroJugador3.setText(partida.getDineroJ3());
         txtDineroJugador4.setText(partida.getDineroJ4());
+        dineroJugadores[0] = Integer.parseInt(txtDineroJugador1.getText());
+        dineroJugadores[1] = Integer.parseInt(txtDineroJugador2.getText());
+        dineroJugadores[2] = Integer.parseInt(txtDineroJugador3.getText());
+        dineroJugadores[3] = Integer.parseInt(txtDineroJugador4.getText());
         dineroPorVuelta = Integer.parseInt(partida.getDineroPorVuelta());
         fianzaCarcel = Integer.parseInt(partida.getFianza());
         idPartida = partida.getId();
@@ -372,6 +387,7 @@ public class Tablero extends javax.swing.JFrame {
         tiempo = Integer.parseInt(partida.getTiempo());
         tiempoMaximo = Integer.parseInt(partida.getTiempoMaximo());
         txtTurno.setText(partida.getTurno());
+        turno=Integer.parseInt(partida.getTurno());
         esperaEnCarcel = Integer.parseInt(partida.getTurnosCarcel());
         
         if(Integer.parseInt(txtDineroJugador1.getText())<0){
@@ -537,11 +553,8 @@ public class Tablero extends javax.swing.JFrame {
                     }
                 }
             }
-            
-            
-            
-            
-            
+        }else{
+            JOptionPane.showMessageDialog(this, "No es tu ");
         }
         
         
@@ -3126,6 +3139,7 @@ public class Tablero extends javax.swing.JFrame {
         
             if(turno==1 && j1Eliminado)
                 turno++;
+            
 
             if(turno==2 && j2Eliminado)
                 turno++;
@@ -3138,17 +3152,30 @@ public class Tablero extends javax.swing.JFrame {
             
 
         
-            if(turno==1 && !j1Eliminado)
+            if(turno==1 && !j1Eliminado && alias.equalsIgnoreCase(aliasJ1)){
                 bandera=true;
+                turno++;
+                break;
+            }
 
-            if(turno==2 && !j2Eliminado)
+            if(turno==2 && !j2Eliminado&& alias.equalsIgnoreCase(aliasJ2)){
                 bandera=true;
+                turno++;
+                break;
+            }
 
-            if(turno==3 && !j3Eliminado)
+            if(turno==3 && !j3Eliminado && alias.equalsIgnoreCase(aliasJ3)){
                 bandera=true;
+                turno++;
+                break;
+            }
+                
 
-            if(turno==4 && j4Eliminado)
+            if(turno==4 && !j4Eliminado && alias.equalsIgnoreCase(aliasJ4)){
                 bandera=true;
+                turno++;
+                break;
+            }
             
         }
         

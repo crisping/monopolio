@@ -155,7 +155,7 @@ public class NuevaPartida extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel14.setText("Duracion(min):");
+        jLabel14.setText("Duracion(seg):");
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -193,7 +193,7 @@ public class NuevaPartida extends javax.swing.JFrame {
 
         cboFianza.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "250", "500", "1000" }));
 
-        cboDucracion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "30", "60", "90" }));
+        cboDucracion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1800", "3600", "5400" }));
 
         cboDineroInicial.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "10000", "15000", "20000" }));
 

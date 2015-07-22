@@ -63,7 +63,13 @@ public class Partida {
     
     public Partida(){
         propiedades = new int[40];
-        for (int i =0; i< 40; i++) propiedades[i] = 0; 
+        for (int i =0; i< 40; i++) propiedades[i] = 0;
+        
+        this.casillaJ1 = "-1";
+        this.casillaJ2 = "-1";
+        this.casillaJ3 = "-1";
+        this.casillaJ4 = "-1";
+        
     }
 
     public String getId() {

@@ -343,8 +343,14 @@ public class DataBase {
             rs = st.executeQuery(sql);
             while(rs.next()){
                 p.setId(rs.getString(1));
-                p.setDineroPorVuelta(rs.getString(9));
-                p.setFianza(rs.getString(12));
+                p.setDineroPorVuelta(convertirEntero(rs.getString(9)));
+                p.setFianza(convertirEntero(rs.getString(12)));
+                p.setImpuestoCapital(convertirEntero(rs.getString(11)));
+                p.setImpuestoLujo(convertirEntero(rs.getString(10)));
+                p.setTiempo(rs.getString(6));
+                p.setTiempoMaximo(rs.getString(7));
+                p.setTurnosCarcel(rs.getString(5));
+                p.setTurno(rs.getString(16));
             }
             sql = "select count(*) from jugadores where partida = '"+id+"'";
             rs = st.executeQuery(sql);
@@ -356,20 +362,21 @@ public class DataBase {
             while (rs.next()){
                 switch (i) {
                     case 1: p.setAliasJ1(rs.getString(1)); 
-                            p.setDineroJ1(rs.getString(6));
+                            p.setDineroJ1(convertirEntero(rs.getString(6)));
                             p.setCasillaJ1(rs.getString(5)); break;
                     case 2: p.setAliasJ2(rs.getString(1));
-                            p.setDineroJ2(rs.getString(6));
+                            p.setDineroJ2(convertirEntero(rs.getString(6)));
                             p.setCasillaJ2(rs.getString(5)); break;
                     case 3: p.setAliasJ3(rs.getString(1));
-                            p.setDineroJ3(rs.getString(6));
+                            p.setDineroJ3(convertirEntero(rs.getString(6)));
                             p.setCasillaJ3(rs.getString(5)); break;
                     case 4: p.setAliasJ4(rs.getString(1)); 
-                            p.setDineroJ4(rs.getString(6));
+                            p.setDineroJ4(convertirEntero(rs.getString(6)));
                             p.setCasillaJ2(rs.getString(4)); break;
                 }
                 i++;
             }
+            
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null, ex.getMessage());
@@ -388,6 +395,20 @@ public class DataBase {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         return false;
+    }
+    
+    public String convertirEntero(String cad){
+        String dinero="";
+        for(int i=0; i<cad.length(); i++){
+            Character caracter = cad.charAt(i);
+            
+            if(caracter.isDigit(caracter))
+                dinero+=caracter;
+            
+        }
+        dinero=dinero.substring(0, dinero.length()-2);
+        
+        return dinero;
     }
     
 }

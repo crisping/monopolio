@@ -251,7 +251,13 @@ public class PartidasGuardadas extends javax.swing.JFrame implements ActionListe
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCargar){
+            if(tblPartidasGuardadas.getSelectedRow()==-1)
+                return;
             Tablero.main(null);
+            Tablero.alias = alias;
+            Tablero.db= db;
+            Tablero.idPartida= modelo.getValueAt(tblPartidasGuardadas.getSelectedRow(), 0).toString();
+            this.dispose();
         }
         if (e.getSource() == btnVolver){
             Perfil.main(null);

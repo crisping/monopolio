@@ -420,7 +420,7 @@
           <Font name="Tahoma" size="12" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Duracion(min):"/>
+        <Property name="text" type="java.lang.String" value="Duracion(seg):"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel15">
@@ -536,9 +536,9 @@
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
           <StringArray count="4">
             <StringItem index="0" value="0"/>
-            <StringItem index="1" value="30"/>
-            <StringItem index="2" value="60"/>
-            <StringItem index="3" value="90"/>
+            <StringItem index="1" value="1800"/>
+            <StringItem index="2" value="3600"/>
+            <StringItem index="3" value="5400"/>
           </StringArray>
         </Property>
       </Properties>
