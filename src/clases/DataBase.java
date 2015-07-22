@@ -247,6 +247,58 @@ public class DataBase {
         if (inf.isEmpty()) return null;
         return inf;
     }
+    
+    void setPartida(Partida p){
+        try{
+            sql = "select * from partidas where id = '"+p.getId()+"'";
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                
+            }
+        }catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+    
+    Partida getPartida(String id){
+        try {
+            sql = "select * from partidas where id = '"+id+"'";
+            rs = st.executeQuery(sql);
+            Partida p= new Partida();
+            while(rs.next()){
+                p.setId(rs.getString(1));
+                p.setDineroPorVuelta(rs.getString(9));
+                p.setFianza(rs.getString(12));
+            }
+            sql = "select count(*) from jugadores where partida = '"+id+"'";
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                p.setCantiadJugadores(rs.getString(1));
+            }
+            sql = "select * from jugadores where partida = '"+id+"'";
+            rs = st.executeQuery(sql); int i = 1;
+            while (rs.next()){
+                switch (i) {
+                    case 1: p.setAliasJ1(rs.getString(1)); 
+                            p.setDineroJ1(rs.getString(6));
+                            p.setCasillaJ1(rs.getString(5)); break;
+                    case 2: p.setAliasJ2(rs.getString(1));
+                            p.setDineroJ2(rs.getString(6));
+                            p.setCasillaJ2(rs.getString(5)); break;
+                    case 3: p.setAliasJ3(rs.getString(1));
+                            p.setDineroJ3(rs.getString(6));
+                            p.setCasillaJ3(rs.getString(5)); break;
+                    case 4: p.setAliasJ4(rs.getString(1)); 
+                            p.setDineroJ4(rs.getString(6));
+                            p.setCasillaJ2(rs.getString(4)); break;
+                }
+                i++;
+            }
+        }
+        catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
 
     //pendiente
     boolean informe(String alias, int id) {
