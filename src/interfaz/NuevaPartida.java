@@ -21,8 +21,8 @@ public class NuevaPartida extends javax.swing.JFrame {
     public NuevaPartida() {
         initComponents();
         this.setLocationRelativeTo(null);
-        txtAliasJ3.setEditable(false);
-        txtAliasJ4.setEditable(false);
+        cargarValoresPorDefecto();
+        
     }
 
     /**
@@ -459,6 +459,26 @@ public class NuevaPartida extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void cargarValoresPorDefecto(){
+        txtAliasJ1.setText(alias);
+        txtAliasJ3.setEditable(false);
+        txtAliasJ4.setEditable(false);
+        cboCasas.setSelectedIndex(2);
+        cboHoteles.setSelectedIndex(2);
+        cboTurnosCarcel.setSelectedIndex(2);
+        cboFianza.setSelectedIndex(1);
+        cboDucracion.setSelectedIndex(0);
+        cboDineroInicial.setSelectedIndex(1);
+        cboDineroPorVuelta.setSelectedIndex(1);
+        cboImpuestoLujo.setSelectedIndex(1);
+        cboImpuestoCapital.setSelectedIndex(1);
+        cboSuerte.setSelectedIndex(2);
+        cboArcaComunal.setSelectedIndex(2);
+        
+        
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalir;
