@@ -18,6 +18,15 @@ public class PartidaGuardada {
     private String aliasJ4;
     private boolean partidaActiva;
 
+    public PartidaGuardada(){
+        id = "";
+        alias = "";
+        aliasJ2 = "";
+        aliasJ3 = "";
+        aliasJ4 = "";
+        partidaActiva = false;
+    }
+    
     public PartidaGuardada(String id, String alias, String aliasJ2, String aliasJ3, String aliasJ4, boolean partidaActiva) {
         this.id = id;
         this.alias = alias;

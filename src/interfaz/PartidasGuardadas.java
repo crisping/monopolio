@@ -30,6 +30,7 @@ public class PartidasGuardadas extends javax.swing.JFrame {
     public PartidasGuardadas() {
         initComponents();
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         cargarPartidas();
     }
 
@@ -237,8 +238,8 @@ public class PartidasGuardadas extends javax.swing.JFrame {
         modelo.setValueAt(partidaGuarada.getAlias(),numFilas,1);
         modelo.setValueAt(partidaGuarada.getAliasJ2(),numFilas,2);
         modelo.setValueAt(partidaGuarada.getAliasJ3(),numFilas,3);
-        modelo.setValueAt(partidaGuarada.getAliasJ4(),numFilas,1);
-        modelo.setValueAt(partidaGuarada.isPartidaActiva(),numFilas,1);
+        modelo.setValueAt(partidaGuarada.getAliasJ4(),numFilas,4);
+        modelo.setValueAt(partidaGuarada.isPartidaActiva(),numFilas,5);
         
         
     }

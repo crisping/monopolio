@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -110,32 +111,57 @@ public class DataBase {
         }
         return false;
     }
-
+    
     public ArrayList<PartidaGuardada> getPartidasGuardadas(String alias) {
-        
+        String id, ida = "0";
+        String aliass;
+        boolean activa;
+        int i = 0;
         try {
-            ArrayList<PartidaGuardada> partidaGuardadas = new ArrayList<PartidaGuardada>();
-            sql = "SELECT ";
+            ArrayList<PartidaGuardada> partidasGuardadas = new ArrayList<PartidaGuardada>();
+            
+            sql = "SELECT id, alias, activa, orden_t FROM " + 
+            "(SELECT * FROM partidas join jugadores " +
+            "ON partidas.id = jugadores.partida) AS A JOIN " +
+            "(SELECT partida FROM jugadores WHERE alias = '"+alias+"'"+
+            ") AS B ON A.id = B.partida order by id;";
+            
+            rs = s.executeQuery(sql);
             
             while(rs.next()){
-
-                //partidaGuardadas.add(new PartidaGuardada(rs.getString(0), rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getBoolean(0));
-
-                
+                aliass = rs.getString(2);
+                id = rs.getString(1);
+                activa = rs.getBoolean(3);
+                PartidaGuardada nueva = null;
+                if (!ida.equals(id)){
+                    nueva = new PartidaGuardada();
+                    nueva.setId(id);
+                    nueva.setPartidaActiva(activa);
+                    nueva.setAlias(aliass);
+                    i = 1; ida = id;
+                    partidasGuardadas.add(nueva);
+                }
+                else {
+                    switch(i){
+                        case 1:
+                            partidasGuardadas.get(partidasGuardadas.size() - 1).setAliasJ2(aliass);
+                            break;
+                        case 2:
+                            partidasGuardadas.get(partidasGuardadas.size() - 1).setAliasJ3(aliass);
+                            break;
+                        case 3:
+                            partidasGuardadas.get(partidasGuardadas.size() - 1).setAliasJ4(aliass);
+                            break;
+                    } i += 1;                    
+                }
             }
-            
-            if(partidaGuardadas.size()==0)
-                return null;
-            else
-                return partidaGuardadas;
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, e.getMessage());
+            if (partidasGuardadas.isEmpty()) return null;
+            return partidasGuardadas;
+        } catch (SQLException e) {
             return null;
         }
     
     
     }
-    
     
 }

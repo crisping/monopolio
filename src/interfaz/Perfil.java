@@ -195,7 +195,10 @@ public class Perfil extends javax.swing.JFrame {
     }//GEN-LAST:event_verificar1ActionPerformed
 
     private void verificar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificar3ActionPerformed
-        // TODO add your handling code here:
+        PartidasGuardadas.alias=alias;
+        PartidasGuardadas.db = db;
+        PartidasGuardadas.main(null);
+        this.dispose();
     }//GEN-LAST:event_verificar3ActionPerformed
 
     private void btnCambiarContraseñaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarContraseñaActionPerformed
