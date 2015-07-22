@@ -30,6 +30,7 @@ public class PartidasGuardadas extends javax.swing.JFrame {
     public PartidasGuardadas() {
         initComponents();
         this.setResizable(false);
+        this.setLocationRelativeTo(null);
         cargarPartidas();
     }
 
@@ -192,7 +193,7 @@ public class PartidasGuardadas extends javax.swing.JFrame {
             });
             
             String datos[][]={};
-            String columnas[]={"Id Partida", "Alias", "Alias J2", "Alias J3", "Alias J4", "Partida Activa"};
+            String columnas[]={"Id Partida", "AliasJ1", "Alias J2", "Alias J3", "Alias J4", "Partida Activa"};
 
              modelo = new DefaultTableModel(datos,columnas){
                 //Se impide que el usuario pueda alterar los datos sobre la tabla directamente,
@@ -237,8 +238,8 @@ public class PartidasGuardadas extends javax.swing.JFrame {
         modelo.setValueAt(partidaGuarada.getAlias(),numFilas,1);
         modelo.setValueAt(partidaGuarada.getAliasJ2(),numFilas,2);
         modelo.setValueAt(partidaGuarada.getAliasJ3(),numFilas,3);
-        modelo.setValueAt(partidaGuarada.getAliasJ4(),numFilas,1);
-        modelo.setValueAt(partidaGuarada.isPartidaActiva(),numFilas,1);
+        modelo.setValueAt(partidaGuarada.getAliasJ4(),numFilas,4);
+        modelo.setValueAt(partidaGuarada.isPartidaActiva(),numFilas,5);
         
         
     }
