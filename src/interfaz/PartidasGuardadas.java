@@ -8,6 +8,8 @@ package interfaz;
 
 import clases.DataBase;
 import clases.PartidaGuardada;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -21,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 
 
-public class PartidasGuardadas extends javax.swing.JFrame {
+public class PartidasGuardadas extends javax.swing.JFrame implements ActionListener{
 
     private DefaultTableModel modelo;
     public static DataBase db;
@@ -48,7 +50,9 @@ public class PartidasGuardadas extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPartidasGuardadas = new javax.swing.JTable();
         btnCargar = new javax.swing.JButton();
+        btnCargar.addActionListener(this);
         btnVolver = new javax.swing.JButton();
+        btnVolver.addActionListener(this);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -242,5 +246,16 @@ public class PartidasGuardadas extends javax.swing.JFrame {
         modelo.setValueAt(partidaGuarada.isPartidaActiva(),numFilas,5);
         
         
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnCargar){
+            Tablero.main(null);
+        }
+        if (e.getSource() == btnVolver){
+            Perfil.main(null);
+            this.dispose();
+        }
     }
 }

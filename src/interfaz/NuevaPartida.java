@@ -5,6 +5,7 @@
  */
 package interfaz;
 
+import clases.DataBase;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,6 +18,7 @@ public class NuevaPartida extends javax.swing.JFrame {
      * Creates new form NuevaPartida
      */
     public static String alias="";
+    public static DataBase db;
     
     public NuevaPartida() {
         initComponents();
@@ -40,8 +42,8 @@ public class NuevaPartida extends javax.swing.JFrame {
         txtIdPartida = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
         cboJugadores = new javax.swing.JComboBox();
-        verificar1 = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
+        btnCrearPartida = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtAliasJ1 = new javax.swing.JFormattedTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -104,18 +106,18 @@ public class NuevaPartida extends javax.swing.JFrame {
             }
         });
 
-        verificar1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        verificar1.setText("Crear partida");
-        verificar1.addActionListener(new java.awt.event.ActionListener() {
+        btnCrearPartida.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        btnCrearPartida.setText("Crear partida");
+        btnCrearPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                verificar1ActionPerformed(evt);
+                btnCrearPartidaActionPerformed(evt);
             }
         });
 
-        btnSalir.setText("Cancelar");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -123,8 +125,6 @@ public class NuevaPartida extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(204, 0, 0));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("AliasJ1");
-
-        txtAliasJ1.setEditable(false);
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 153, 0));
@@ -250,7 +250,7 @@ public class NuevaPartida extends javax.swing.JFrame {
                                 .addComponent(txtAliasJ1, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(83, 83, 83)
-                        .addComponent(verificar1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnCrearPartida, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(133, Short.MAX_VALUE)
@@ -296,7 +296,7 @@ public class NuevaPartida extends javax.swing.JFrame {
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cboImpuestoCapital, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnSalir))
+                            .addComponent(btnCancelar))
                         .addGap(15, 15, 15))))
         );
         layout.setVerticalGroup(
@@ -370,8 +370,8 @@ public class NuevaPartida extends javax.swing.JFrame {
                     .addComponent(cboArcaComunal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(verificar1)
-                    .addComponent(btnSalir))
+                    .addComponent(btnCrearPartida)
+                    .addComponent(btnCancelar))
                 .addContainerGap())
         );
 
@@ -383,17 +383,21 @@ public class NuevaPartida extends javax.swing.JFrame {
       
     }//GEN-LAST:event_verificarActionPerformed
 
-    private void verificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificar1ActionPerformed
-        Tablero.main(null);
-        Tablero.alias=alias;
-        this.dispose();
+    private void btnCrearPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearPartidaActionPerformed
+        if(crearPartida()){
+            txtIdPartida.setText(db.getIdUltimaPartida());
+            JOptionPane.showMessageDialog(this, "Partida creada con el id:"+ txtIdPartida.getText());
+            Tablero.main(null);
+            Tablero.alias=alias;
+            this.dispose();
+        }
        
-    }//GEN-LAST:event_verificar1ActionPerformed
+    }//GEN-LAST:event_btnCrearPartidaActionPerformed
 
-    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         Perfil.main(null);
         this.dispose();
-    }//GEN-LAST:event_btnSalirActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cboJugadoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboJugadoresActionPerformed
         
@@ -461,7 +465,6 @@ public class NuevaPartida extends javax.swing.JFrame {
     }
     
     public void cargarValoresPorDefecto(){
-        txtAliasJ1.setText(alias);
         txtAliasJ3.setEditable(false);
         txtAliasJ4.setEditable(false);
         cboCasas.setSelectedIndex(2);
@@ -475,13 +478,19 @@ public class NuevaPartida extends javax.swing.JFrame {
         cboImpuestoCapital.setSelectedIndex(1);
         cboSuerte.setSelectedIndex(2);
         cboArcaComunal.setSelectedIndex(2);
-        
+        txtIdPartida.setText(db.getIdNuevaPartida());
+        if(txtIdPartida.getText().equals("-1")){
+            Perfil.main(null);
+            this.dispose();
+        }
+            
         
     }
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnCrearPartida;
     private javax.swing.JComboBox cboArcaComunal;
     private javax.swing.JComboBox cboCasas;
     private javax.swing.JComboBox cboDineroInicial;
@@ -518,6 +527,37 @@ public class NuevaPartida extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtAliasJ4;
     private javax.swing.JFormattedTextField txtIdPartida;
     private javax.swing.JButton verificar;
-    private javax.swing.JButton verificar1;
     // End of variables declaration//GEN-END:variables
+
+    private boolean crearPartida() {
+        int casas = Integer.parseInt(cboCasas.getSelectedItem().toString());
+        int hoteles = Integer.parseInt(cboHoteles.getSelectedItem().toString());
+        int turnosCarcel = Integer.parseInt(cboTurnosCarcel.getSelectedItem().toString());
+        int duracion = Integer.parseInt(cboDucracion.getSelectedItem().toString());
+        int dineroInicial = Integer.parseInt(cboDineroInicial.getSelectedItem().toString());
+        int dineroPorVuelta = Integer.parseInt(cboDineroPorVuelta.getSelectedItem().toString());
+        int impuestoLujo = Integer.parseInt(cboImpuestoLujo.getSelectedItem().toString());
+        int impuestoCapital = Integer.parseInt(cboImpuestoCapital.getSelectedItem().toString());
+        int fianza = Integer.parseInt(cboFianza.getSelectedItem().toString());
+        String admin = alias;
+        String aliasJ1 = txtAliasJ1.getText();
+        String aliasJ2 = txtAliasJ2.getText();
+        String aliasJ3 = txtAliasJ3.getText();
+        String aliasJ4 = txtAliasJ4.getText();
+        return db.addPartida(casas, 
+                            hoteles, 
+                            turnosCarcel, 
+                            duracion, 
+                            dineroInicial, 
+                            dineroPorVuelta, 
+                            impuestoLujo, 
+                            impuestoCapital, 
+                            fianza, 
+                            admin, 
+                            aliasJ1, 
+                            aliasJ2, 
+                            aliasJ3, 
+                            aliasJ4);
+            
+    }
 }

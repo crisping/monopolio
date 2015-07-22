@@ -191,7 +191,10 @@ public class Perfil extends javax.swing.JFrame {
     }//GEN-LAST:event_txtAliasActionPerformed
 
     private void verificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificar1ActionPerformed
-        // TODO add your handling code here:
+        InformePartidas.main(null);
+        InformePartidas.alias=alias;
+        InformePartidas.db=db;
+        this.dispose();
     }//GEN-LAST:event_verificar1ActionPerformed
 
     private void verificar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_verificar3ActionPerformed
@@ -209,6 +212,7 @@ public class Perfil extends javax.swing.JFrame {
         // TODO add your handling code here:
         NuevaPartida.main(null);
         NuevaPartida.alias=alias;
+        NuevaPartida.db = db;
         this.dispose();
         
     }//GEN-LAST:event_verificar5ActionPerformed
