@@ -247,5 +247,17 @@ public class DataBase {
         if (inf.isEmpty()) return null;
         return inf;
     }
+
+    //pendiente
+    boolean informe(String alias, int id) {
+        sql = "actualizar_informe('"+alias+"','"+id+"')";
+        try {
+            rs = st.executeQuery(sql);
+            if (!rs.next()) return true;
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+        return false;
+    }
     
 }

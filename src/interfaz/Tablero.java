@@ -6,6 +6,7 @@
 package interfaz;
 
 import clases.Banca;
+import clases.Hilo;
 import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -19,6 +20,8 @@ public class Tablero extends javax.swing.JFrame {
     /**
      * Creates new form tablero
      */
+    public Hilo hilo;//---
+    
     public static String alias;
     
     private int turno = 1;              //Simula al jugador Actual
@@ -154,6 +157,9 @@ public class Tablero extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        
+        //hilo = new Hilo();
+        //hilo.run();//--
     }
 
     /**

@@ -18,15 +18,23 @@ import javax.swing.JOptionPane;
 public class Hilo implements Runnable{
     public static DataBase db; 
     public static String alias;
+    public static String aliasJ1;
+    public static String aliasJ2;
+    public static String aliasJ3;
+    public static String aliasJ4;
     public static int id;
+    
     @Override
     public void run() {
         while(true){
+            db.informe(aliasJ1, id);
+            db.informe(aliasJ2, id);
+            db.informe(aliasJ3, id);
+            db.informe(aliasJ4, id);
             try {
-                this.wait(15);
-                //db.informe(alias, id);
+                Thread.sleep(15);
             } catch (InterruptedException ex) {
-                JOptionPane.showMessageDialog(null, ex.getMessage());
+                Logger.getLogger(Hilo.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
