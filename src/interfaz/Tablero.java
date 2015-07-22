@@ -140,6 +140,11 @@ public class Tablero extends javax.swing.JFrame {
     private int numCasilla[] = {0,0,0,0};
     private int xPosFicha, yPosFicha;
     
+    private boolean j1Eliminado = false;
+    private boolean j2Eliminado = false;
+    private boolean j3Eliminado = false;
+    private boolean j4Eliminado = false;
+    
     public Tablero() {
         
         initComponents();
@@ -331,8 +336,8 @@ public class Tablero extends javax.swing.JFrame {
         txtDado1.setText(cadena1);
         txtDado2.setText(cadena2);
         txtAvanzarCasillas.setText(cadena3);
-        
-        if (turno == 1){
+        eliminarJugador();
+        if (turno == 1 && !j1Eliminado){
             numCasilla1 = numCasilla1 + avanzarCasillas;
             posicion_ficha1 = posicion_ficha1 + avanzarCasillas;
     
@@ -356,7 +361,7 @@ public class Tablero extends javax.swing.JFrame {
             }           
         }
         
-        if (turno == 2){
+        if (turno == 2 && !j2Eliminado){
             numCasilla2 = numCasilla2 + avanzarCasillas;
             posicion_ficha2 = posicion_ficha2 + avanzarCasillas;       
             
@@ -380,7 +385,7 @@ public class Tablero extends javax.swing.JFrame {
             }
         }
         
-        if (turno == 3){
+        if (turno == 3 && !j3Eliminado){
             numCasilla3 = numCasilla3 + avanzarCasillas;
             posicion_ficha3 = posicion_ficha3 + avanzarCasillas;   
             
@@ -403,7 +408,7 @@ public class Tablero extends javax.swing.JFrame {
             }
         } 
         
-        if (turno == 4){
+        if (turno == 4 && !j4Eliminado){
             numCasilla4 = numCasilla4 + avanzarCasillas;
             posicion_ficha4 = posicion_ficha4 + avanzarCasillas;   
             
@@ -3060,33 +3065,41 @@ public class Tablero extends javax.swing.JFrame {
     
     private void bancaRota(){
         if (dineroJugadores[turno-1] <= 0)
-            if(turno == 1){
+            if(turno == 1 && !j1Eliminado){
                 JOptionPane.showMessageDialog(this," Jugador 1 Ha sido eliminado ");
                 jLabelFicha1.setEnabled(false);
+                jLabelFicha1.setSize(1, 1);
+                j1Eliminado=true;
                 //jLabelFicha1.setVisible(false);
                // jLabelFicha1.setLocation(1000,1000);
                 numCasilla1 = 0;
                 posicion_ficha1 = 0;
             }
-            if(turno == 2){
+            if(turno == 2 && !j2Eliminado){
                 JOptionPane.showMessageDialog(this," Jugador 2 Ha sido eliminado ");
                 jLabelFicha2.setEnabled(false);
+                jLabelFicha2.setSize(1, 1);
+                j2Eliminado=true;
                 //jLabelFicha2.setVisible(false);                
                // jLabelFicha2.setLocation(1000,1000);
                 numCasilla2 = 0;
                 posicion_ficha2 = 0;
             }
-            if(turno == 3){
+            if(turno == 3 && !j3Eliminado){
                 JOptionPane.showMessageDialog(this," Jugador 3 Ha sido eliminado ");
                 jLabelFicha3.setEnabled(false);
+                jLabelFicha3.setSize(1, 1);
+                j3Eliminado=true;
                 //jLabelFicha3.setVisible(false);
                 //jLabelFicha3.setLocation(1000,1000);
                 numCasilla3 = 0;
                 posicion_ficha3 = 0;
             }
-            if(turno == 4){
+            if(turno == 4 && !j4Eliminado){
                 JOptionPane.showMessageDialog(this," Jugador 4 Ha sido eliminado ");
                 jLabelFicha4.setEnabled(false);
+                jLabelFicha4.setSize(1, 1);
+                j4Eliminado=true;
                 //jLabelFicha4.setVisible(false);
                // jLabelFicha4.setLocation(1000,1000);
                 numCasilla4 = 0;
