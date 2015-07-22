@@ -32,6 +32,7 @@ public class Partida {
     private String dineroPorVuelta;
     private String tiempoMaximo;
     private String cantiadJugadores;
+    public int[] propiedades;
 
     public Partida(String id, String aliasJ1, String aliasJ2, String aliasJ3, String aliasJ4, String dineroJ1, String dineroJ2, String dineroJ3, String dineroJ4, String casillaJ1, String casillaJ2, String casillaJ3, String casillaJ4, String tiempo, String turno, String impuestoLujo, String impuestoCapital, String turnosCarcel, String fianza, String dineroPorVuelta, String tiempoMaximo, String cantiadJugadores) {
         this.id = id;
@@ -56,9 +57,13 @@ public class Partida {
         this.dineroPorVuelta = dineroPorVuelta;
         this.tiempoMaximo = tiempoMaximo;
         this.cantiadJugadores = cantiadJugadores;
+        propiedades = new int[40];
+        for (int i =0; i< 40; i++) propiedades[i] = 0;
     }
     
     public Partida(){
+        propiedades = new int[40];
+        for (int i =0; i< 40; i++) propiedades[i] = 0; 
     }
 
     public String getId() {

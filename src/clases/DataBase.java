@@ -248,23 +248,99 @@ public class DataBase {
         return inf;
     }
     
-    void setPartida(Partida p){
-        try{
-            sql = "select * from partidas where id = '"+p.getId()+"'";
+    public void cargarPropiedades( Partida p){
+        try {
+            sql = "select numero from propiedades where id = '"+p.getId()+"' and alias = '"+p.getAliasJ1()+"'";
             rs = st.executeQuery(sql);
             while(rs.next()){
-                
+                p.propiedades[rs.getInt(1)] = 1;
+            }
+            sql = "select numero from propiedades where id = '"+p.getId()+"' and alias = '"+p.getAliasJ2()+"'";
+            rs = st.executeQuery(sql);
+            while(rs.next()){
+                p.propiedades[rs.getInt(1)] = 2;
+            }
+            if (Integer.parseInt(p.getCantiadJugadores()) > 2){
+                sql = "select numero from propiedades where id = '"+p.getId()+"' and alias = '"+p.getAliasJ3()+"'";
+                rs = st.executeQuery(sql);
+                while(rs.next()){
+                    p.propiedades[rs.getInt(1)] = 3;
+                }
+            }
+            if (Integer.parseInt(p.getCantiadJugadores()) > 3){
+                sql = "select numero from propiedades where id = '"+p.getId()+"' and alias = '"+p.getAliasJ4()+"'";
+                rs = st.executeQuery(sql);
+                while(rs.next()){
+                    p.propiedades[rs.getInt(1)] = 3;
+                }
+            }
+        } catch(SQLException ex){
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }
+    
+    public void guardarPropiedades(Partida p){
+        for (int i=0; i<40; i++){
+            try{
+                if (p.propiedades[i] != 0) {
+                    switch (p.propiedades[i]){
+                        case 1:
+                            sql = "insert into propiedades(id, alias, numero) "+
+                            "values('"+p.getId()+"','"+p.getAliasJ1()+"','"+i+"')";
+                        break;
+                        case 2:
+                            sql = "insert into propiedades(id, alias, numero) "+
+                            "values('"+p.getId()+"','"+p.getAliasJ2()+"','"+i+"')";
+                        break;
+                        case 3:
+                            sql = "insert into propiedades(id, alias, numero) "+
+                            "values('"+p.getId()+"','"+p.getAliasJ3()+"','"+i+"')";
+                        break;
+                            case 4:
+                            sql = "insert into propiedades(id, alias, numero) "+
+                            "values('"+p.getId()+"','"+p.getAliasJ4()+"','"+i+"')";
+                        break;
+                    }
+                    rs = st.executeQuery(sql);
+                }
+            } catch (SQLException ex) {
+                //JOptionPane.showMessageDialog(null, ex.getMessage());
+            }
+        }
+    }
+    
+    public void setPartida(Partida p){
+        try{
+            sql = "update jugadores set dinero = '"+p.getDineroJ1()+"',"+
+                    "posicion = '"+p.getCasillaJ1()+"' where alias = '"+p.getAliasJ1()+"'"+
+                    " and partida = '"+p.getId()+"'";
+            rs = st.executeQuery(sql);
+            sql = "update jugadores set dinero = '"+p.getDineroJ2()+"',"+
+                    "posicion = '"+p.getCasillaJ2()+"' where alias = '"+p.getAliasJ2()+"'"+
+                    " and partida = '"+p.getId()+"'";
+            rs = st.executeQuery(sql);
+            if (Integer.parseInt(p.getCantiadJugadores()) > 2) {
+                sql = "update jugadores set dinero = '"+p.getDineroJ3()+"',"+
+                    "posicion = '"+p.getCasillaJ3()+"' where alias = '"+p.getAliasJ3()+"'"+
+                    " and partida = '"+p.getId()+"'";
+            rs = st.executeQuery(sql);
+            }
+            if (Integer.parseInt(p.getCantiadJugadores()) > 3) {
+                sql = "update jugadores set dinero = '"+p.getDineroJ4()+"',"+
+                    "posicion = '"+p.getCasillaJ4()+"' where alias = '"+p.getAliasJ4()+"'"+
+                    " and partida = '"+p.getId()+"'";
+            rs = st.executeQuery(sql);
             }
         }catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
     }
     
-    Partida getPartida(String id){
+    public Partida getPartida(String id){
+        Partida p= new Partida();
         try {
             sql = "select * from partidas where id = '"+id+"'";
             rs = st.executeQuery(sql);
-            Partida p= new Partida();
             while(rs.next()){
                 p.setId(rs.getString(1));
                 p.setDineroPorVuelta(rs.getString(9));
@@ -297,11 +373,13 @@ public class DataBase {
         }
         catch(SQLException ex){
             JOptionPane.showMessageDialog(null, ex.getMessage());
+            return null;
         }
+        return p;
     }
 
     //pendiente
-    boolean informe(String alias, int id) {
+    public boolean informe(String alias, int id) {
         sql = "actualizar_informe('"+alias+"','"+id+"')";
         try {
             rs = st.executeQuery(sql);
