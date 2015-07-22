@@ -7,6 +7,7 @@ package interfaz;
 
 import clases.Banca;
 import clases.Hilo;
+import clases.Partida;
 import java.util.Random;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -23,8 +24,32 @@ public class Tablero extends javax.swing.JFrame {
     public Hilo hilo;//---
     
     public static String alias;
+    public static String idPartida; 
     
+    private int cantidadJugadores;
+    private int tiempo;
+    private int tiempoMaximo;
+    private String aliasJ1;
+    private String aliasJ2;
+    private String aliasJ3;
+    private String aliasJ4;
+    private int numCasilla1;
+    private int numCasilla2;
+    private int numCasilla3;
+    private int numCasilla4;
+    private int impuestoTasaLujo = 1000;
+    private int impuestoCapital = 2000;
+    private int fianzaCarcel = 500;
+    private int esperaEnCarcel = -2;
+    private int dineroPorVuelta = 2000;  
+    private int[] propiedadCompradaPor = new int[40];
+    private int[] dineroJugadores = new int[4];    
     private int turno = 0;              //Simula al jugador Actual
+    private boolean j1Eliminado = false;
+    private boolean j2Eliminado = false;
+    private boolean j3Eliminado = false;
+    private boolean j4Eliminado = false;
+    
     private int jugarDado = 0;
     
     private int mover1 = 1;
@@ -44,12 +69,7 @@ public class Tablero extends javax.swing.JFrame {
     private int posicion_ficha2;
     private int posicion_ficha3;
     private int posicion_ficha4;
-    
-    private int numCasilla1;
-    private int numCasilla2;
-    private int numCasilla3;
-    private int numCasilla4;
-    
+
     private int esquina = 1;
     private int esquina2 = 1;
     private int esquina3 = 1;
@@ -124,8 +144,7 @@ public class Tablero extends javax.swing.JFrame {
     private final int valorCalleAzul = 3750;
     private final int valorEstacion = 2000;
     private final int valorCompañia = 1500;
-    
-    
+      
     private final int pagarCalleAñil = 20;
     private final int pagarCalleCeleste = 60;
     private final int pagarCalleMorado = 100;
@@ -135,18 +154,10 @@ public class Tablero extends javax.swing.JFrame {
     private final int pagarCalleVerde = 260;
     private final int pagarCalleAzul = 500;
     private final int pagarPorEstacion = 250;
-    private final int impuesto = 1000;
      
-    private int[] propiedadCompradaPor = new int[40];
-    private int[] dineroJugadores = new int[4];
-    
     private int numCasilla[] = {0,0,0,0};
     private int xPosFicha, yPosFicha;
-    
-    private boolean j1Eliminado = false;
-    private boolean j2Eliminado = false;
-    private boolean j3Eliminado = false;
-    private boolean j4Eliminado = false;
+ 
     
     public Tablero() {
         
@@ -193,16 +204,21 @@ public class Tablero extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtTurno = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lblJ1 = new javax.swing.JLabel();
+        lblJ2 = new javax.swing.JLabel();
+        lblJ3 = new javax.swing.JLabel();
+        lblJ4 = new javax.swing.JLabel();
         txtDineroJugador1 = new javax.swing.JTextField();
         txtDineroJugador2 = new javax.swing.JTextField();
         txtDineroJugador3 = new javax.swing.JTextField();
         txtDineroJugador4 = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtTiempo = new javax.swing.JTextField();
+        txtTiempoMax = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -283,28 +299,39 @@ public class Tablero extends javax.swing.JFrame {
         jLabel3.setText("Banco");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 90, -1, -1));
 
-        jLabel4.setText("jugador1");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 190, -1, -1));
+        lblJ1.setText("jugador1");
+        getContentPane().add(lblJ1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 190, -1, -1));
 
-        jLabel5.setText("jugador2");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 240, -1, -1));
+        lblJ2.setText("jugador2");
+        getContentPane().add(lblJ2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 240, -1, -1));
 
-        jLabel6.setText("jugador3");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 290, -1, -1));
+        lblJ3.setText("jugador3");
+        getContentPane().add(lblJ3, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 290, -1, -1));
 
-        jLabel7.setText("jugador4");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 340, -1, -1));
-        getContentPane().add(txtDineroJugador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 190, 60, -1));
-        getContentPane().add(txtDineroJugador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 240, 60, -1));
-        getContentPane().add(txtDineroJugador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 290, 60, -1));
-        getContentPane().add(txtDineroJugador4, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 340, 60, -1));
+        lblJ4.setText("jugador4");
+        getContentPane().add(lblJ4, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 340, -1, -1));
+        getContentPane().add(txtDineroJugador1, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 190, 60, -1));
+        getContentPane().add(txtDineroJugador2, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 240, 60, -1));
+        getContentPane().add(txtDineroJugador3, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 290, 60, -1));
+        getContentPane().add(txtDineroJugador4, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 340, 60, -1));
 
         jLabel8.setText("Dinero");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 170, -1, -1));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 160, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel9.setText("Monopolio");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, -1, -1));
+
+        jLabel10.setText("Nombre");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 160, -1, -1));
+
+        jLabel4.setText("Tiempo(seg)");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 680, -1, -1));
+        getContentPane().add(txtTiempo, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 660, 60, -1));
+        getContentPane().add(txtTiempoMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 660, 60, -1));
+
+        jLabel5.setText("Tiempo(MAX)");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 680, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -321,121 +348,202 @@ public class Tablero extends javax.swing.JFrame {
        
     }//GEN-LAST:event_jLabelFicha1MouseClicked
 
+    public void cargarPartida(){
+        Partida partida = null; //db.getpartida(idPartida);
+        
+        aliasJ1 = partida.getAliasJ1();
+        aliasJ2 = partida.getAliasJ2();
+        aliasJ3 = partida.getAliasJ3();
+        aliasJ4 = partida.getAliasJ4();
+        cantidadJugadores = Integer.parseInt(partida.getCantiadJugadores());
+        numCasilla1 = Integer.parseInt(partida.getCasillaJ1());
+        numCasilla2 = Integer.parseInt(partida.getCasillaJ2());
+        numCasilla3 = Integer.parseInt(partida.getCasillaJ3());
+        numCasilla4 = Integer.parseInt(partida.getCasillaJ4());
+        txtDineroJugador1.setText(partida.getDineroJ1());
+        txtDineroJugador2.setText(partida.getDineroJ2());
+        txtDineroJugador3.setText(partida.getDineroJ3());
+        txtDineroJugador4.setText(partida.getDineroJ4());
+        dineroPorVuelta = Integer.parseInt(partida.getDineroPorVuelta());
+        fianzaCarcel = Integer.parseInt(partida.getFianza());
+        idPartida = partida.getId();
+        impuestoCapital = Integer.parseInt(partida.getImpuestoCapital());
+        impuestoTasaLujo = Integer.parseInt(partida.getImpuestoLujo());
+        tiempo = Integer.parseInt(partida.getTiempo());
+        tiempoMaximo = Integer.parseInt(partida.getTiempoMaximo());
+        txtTurno.setText(partida.getTurno());
+        esperaEnCarcel = Integer.parseInt(partida.getTurnosCarcel());
+        
+        if(Integer.parseInt(txtDineroJugador1.getText())<0){
+            j1Eliminado=true;
+            jLabelFicha1.setSize(1,1);
+        }
+        
+        if(Integer.parseInt(txtDineroJugador2.getText())<0){
+            j2Eliminado=true;
+            jLabelFicha2.setSize(1,1);
+        }
+        
+        if(Integer.parseInt(txtDineroJugador3.getText())<0){
+            j3Eliminado=true;
+            jLabelFicha3.setSize(1,1);
+        }
+        
+        if(Integer.parseInt(txtDineroJugador4.getText())<0){
+            j4Eliminado=true;
+            jLabelFicha4.setSize(1,1);
+        }
+        
+        txtTiempo.setText(tiempo+" seg");
+        
+        if(cantidadJugadores==2){
+            j3Eliminado=true;
+            j4Eliminado=true;
+        }
+        
+        if(cantidadJugadores==3){
+            j4Eliminado=true;
+        }
+        
+        txtTiempoMax.setText(tiempoMaximo+" seg");
+
+    }
+    
     private void btnJugarDadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJugarDadoActionPerformed
             
-        jugarDados();
-        obtenerTurno(); 
+        boolean bandera = false;
+        
+        if(turno==1 && alias.equalsIgnoreCase(lblJ1.getText()))
+            bandera=true;
+        if(turno==2 && alias.equalsIgnoreCase(lblJ2.getText()))
+            bandera=true;
+        if(turno==3 && alias.equalsIgnoreCase(lblJ3.getText()))
+            bandera=true;
+        if(turno==4 && alias.equalsIgnoreCase(lblJ4.getText()))
+            bandera=true;
+        
+        if(bandera){
+            
+            jugarDados();
+            obtenerTurno(); 
 
-        cadena4 = String.valueOf(turno);           
-        txtTurno.setText(cadena4);
-        
-        Random r1 = new Random();
-        Random r2 = new Random();
-        
-        valorDado1 = r1.nextInt(6)+1;
-        valorDado2 = r2.nextInt(6)+1;        
-        avanzarCasillas = valorDado1 + valorDado2; 
-        
-        cadena1 = String.valueOf(valorDado1);
-        cadena2 = String.valueOf(valorDado2);       
-        cadena3 = String.valueOf(avanzarCasillas);       
-        txtDado1.setText(cadena1);
-        txtDado2.setText(cadena2);
-        txtAvanzarCasillas.setText(cadena3);
-        eliminarJugador();
-        if (turno == 1 && !j1Eliminado){
-            numCasilla1 = numCasilla1 + avanzarCasillas;
-            posicion_ficha1 = posicion_ficha1 + avanzarCasillas;
-    
-            recibeBonus();
-            //eliminarJugador();
-            if (mover1 == 1){
-                
-                //moverFicha1();
-                MoverFicha1();
-            }else{
-                if (mover1 < 1){
-                    mover1 = mover1 + 1;
-                }               
-                if (mover1 >= 1){
-                    mover1 = 1;
-                    paso=1;
-                    esquina=2;
-                    posicion_ficha1=10;
-                    numCasilla1 = 10;
-                }
-            }           
-        }
-        
-        if (turno == 2 && !j2Eliminado){
-            numCasilla2 = numCasilla2 + avanzarCasillas;
-            posicion_ficha2 = posicion_ficha2 + avanzarCasillas;       
-            
-            recibeBonus();
-            //eliminarJugador();
-            if (mover2 == 1){
-                
-                MoverFicha2();
-                //moverFicha2();
-            }else{
-                if (mover2 < 1){
-                    mover2 = mover2 + 1;
-                }               
-                if (mover2 >= 1){
-                    mover2 = 1;
-                    paso2=1;
-                    esquina2=2;
-                    posicion_ficha2=10;
-                    numCasilla2 = 10;
+            cadena4 = String.valueOf(turno);           
+            txtTurno.setText(cadena4);
+
+            Random r1 = new Random();
+            Random r2 = new Random();
+
+            valorDado1 = r1.nextInt(6)+1;
+            valorDado2 = r2.nextInt(6)+1;        
+            avanzarCasillas = valorDado1 + valorDado2; 
+
+            cadena1 = String.valueOf(valorDado1);
+            cadena2 = String.valueOf(valorDado2);       
+            cadena3 = String.valueOf(avanzarCasillas);       
+            txtDado1.setText(cadena1);
+            txtDado2.setText(cadena2);
+            txtAvanzarCasillas.setText(cadena3);
+            eliminarJugador();
+            if (turno == 1 && !j1Eliminado){
+                numCasilla1 = numCasilla1 + avanzarCasillas;
+                posicion_ficha1 = posicion_ficha1 + avanzarCasillas;
+
+                recibeBonus();
+                //eliminarJugador();
+                if (mover1 == 1){
+
+                    //moverFicha1();
+                    MoverFicha1();
+                }else{
+                    if (mover1 < 1){
+                        mover1 = mover1 + 1;
+                    }               
+                    if (mover1 >= 1){
+                        mover1 = 1;
+                        paso=1;
+                        esquina=2;
+                        posicion_ficha1=10;
+                        numCasilla1 = 10;
+                    }
+                }           
+            }
+
+            if (turno == 2 && !j2Eliminado){
+                numCasilla2 = numCasilla2 + avanzarCasillas;
+                posicion_ficha2 = posicion_ficha2 + avanzarCasillas;       
+
+                recibeBonus();
+                //eliminarJugador();
+                if (mover2 == 1){
+
+                    MoverFicha2();
+                    //moverFicha2();
+                }else{
+                    if (mover2 < 1){
+                        mover2 = mover2 + 1;
+                    }               
+                    if (mover2 >= 1){
+                        mover2 = 1;
+                        paso2=1;
+                        esquina2=2;
+                        posicion_ficha2=10;
+                        numCasilla2 = 10;
+                    }
                 }
             }
-        }
-        
-        if (turno == 3 && !j3Eliminado){
-            numCasilla3 = numCasilla3 + avanzarCasillas;
-            posicion_ficha3 = posicion_ficha3 + avanzarCasillas;   
-            
-            recibeBonus();
-            //eliminarJugador();
-            if (mover3 == 1){               
-                MoverFicha3();
-                //moverFicha3();
-            }else{
-                if (mover3 < 1){
-                    mover3 = mover3 + 1;
-                }               
-                if (mover3 >= 1){
-                    mover3 = 1;
-                    paso3=1;
-                    esquina3=2;
-                    posicion_ficha3=10;
-                    numCasilla3 = 10;
+
+            if (turno == 3 && !j3Eliminado){
+                numCasilla3 = numCasilla3 + avanzarCasillas;
+                posicion_ficha3 = posicion_ficha3 + avanzarCasillas;   
+
+                recibeBonus();
+                //eliminarJugador();
+                if (mover3 == 1){               
+                    MoverFicha3();
+                    //moverFicha3();
+                }else{
+                    if (mover3 < 1){
+                        mover3 = mover3 + 1;
+                    }               
+                    if (mover3 >= 1){
+                        mover3 = 1;
+                        paso3=1;
+                        esquina3=2;
+                        posicion_ficha3=10;
+                        numCasilla3 = 10;
+                    }
+                }
+            } 
+
+            if (turno == 4 && !j4Eliminado){
+                numCasilla4 = numCasilla4 + avanzarCasillas;
+                posicion_ficha4 = posicion_ficha4 + avanzarCasillas;   
+
+                recibeBonus();
+                //eliminarJugador();
+                if (mover4 == 1){               
+                    MoverFicha4();
+                    //moverFicha4();
+                }else{
+                    if (mover4 < 1){
+                        mover4 = mover4 + 1;
+                    }               
+                    if (mover4 >= 1){
+                        mover4 = 1;
+                        paso4=1;
+                        esquina4=2;
+                        posicion_ficha4 = 10;
+                        numCasilla4 = 10;
+                    }
                 }
             }
-        } 
-        
-        if (turno == 4 && !j4Eliminado){
-            numCasilla4 = numCasilla4 + avanzarCasillas;
-            posicion_ficha4 = posicion_ficha4 + avanzarCasillas;   
             
-            recibeBonus();
-            //eliminarJugador();
-            if (mover4 == 1){               
-                MoverFicha4();
-                //moverFicha4();
-            }else{
-                if (mover4 < 1){
-                    mover4 = mover4 + 1;
-                }               
-                if (mover4 >= 1){
-                    mover4 = 1;
-                    paso4=1;
-                    esquina4=2;
-                    posicion_ficha4 = 10;
-                    numCasilla4 = 10;
-                }
-            }
+            
+            
+            
+            
         }
+        
         
     }//GEN-LAST:event_btnJugarDadoActionPerformed
 
@@ -495,12 +603,11 @@ public class Tablero extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnJugarDado;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelAdorno;
@@ -511,6 +618,10 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelTablero;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel lblJ1;
+    private javax.swing.JLabel lblJ2;
+    private javax.swing.JLabel lblJ3;
+    private javax.swing.JLabel lblJ4;
     private javax.swing.JTextField txtAvanzarCasillas;
     private javax.swing.JTextField txtDado1;
     private javax.swing.JTextField txtDado2;
@@ -518,270 +629,12 @@ public class Tablero extends javax.swing.JFrame {
     private javax.swing.JTextField txtDineroJugador2;
     private javax.swing.JTextField txtDineroJugador3;
     private javax.swing.JTextField txtDineroJugador4;
+    private javax.swing.JTextField txtTiempo;
+    private javax.swing.JTextField txtTiempoMax;
     private javax.swing.JTextField txtTurno;
     // End of variables declaration//GEN-END:variables
-   
-    private void moverFicha1(){
-        
-        if (turno == 1 && jugarDado == 1){
-            if (esquina == 1 || esquina == 5){
-                if (paso == 4 || paso == 1){
-                    posicion_ficha1 = posicion_ficha1 - 10;
-                    paso = 10;   
-                }
-
-                if (posicion_ficha1 > 10){
-                    esquina = 2;
-                    paso = 1;
-                }else{
-                    jLabelFicha1.setLocation(620-(posicion_ficha1*56),635);
-                    mostrarTarjeta(numCasilla1);                   
-                }
-            }
-                                                                                         
-            if (esquina == 2){
-                if (paso == 1){
-                    posicion_ficha1 = posicion_ficha1 - 10;
-                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
-                    paso = 2;
-                }
-
-                if (posicion_ficha1 > 10){
-                    esquina = 3;
-                }else{
-                    jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
-                    mostrarTarjeta(numCasilla1);
-                }        
-                //jLabelFicha1.setLocation(30,635);
-            }
-
-            if(esquina == 3){
-                if (paso == 2){
-                    posicion_ficha1 = posicion_ficha1 - 10;
-                   // jLabelFicha1.setLocation(60,30);
-                    paso = 3;
-                }
-
-                if (posicion_ficha1 > 10){
-                    esquina = 4;
-                }else{
-                    jLabelFicha1.setLocation(60+(55*posicion_ficha1),30);
-                    mostrarTarjeta(numCasilla1);   
-                }
-            }
-
-            if(esquina == 4){
-                if(paso == 3){
-                    posicion_ficha1 = posicion_ficha1 - 10;
-                   // jLabelFicha1.setLocation(40, 40);
-                    paso = 4;
-                }
-
-                if(posicion_ficha1 > 10){
-                    esquina = 5;
-                }else{
-                    jLabelFicha1.setLocation(635, 60+(55*posicion_ficha1));
-                    mostrarTarjeta(numCasilla1);
-                }         
-            }
-        }
-    }
     
-    private void moverFicha2(){
-        if (turno == 2 && jugarDado == 2){
-            if (esquina2 == 1 || esquina2 == 5){
-                if (paso2 == 4 || paso2 == 1){
-                    posicion_ficha2 = posicion_ficha2 - 10;
-                    paso2 = 10;
-                }
 
-                if (posicion_ficha2 > 10){
-                    esquina2 = 2;
-                    paso2 = 1;
-                }else{
-                    jLabelFicha2.setLocation(620-(posicion_ficha2*56),635);
-                    mostrarTarjeta(numCasilla2);
-                }
-            }
-
-            if (esquina2 == 2){
-                if (paso2 == 1){
-                    posicion_ficha2 = posicion_ficha2 - 10;
-                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
-                    paso2 = 2;
-                }
-
-                if (posicion_ficha2 > 10){
-                    esquina2 = 3;
-                }else{
-                    jLabelFicha2.setLocation(30,635-(59*posicion_ficha2));
-                    mostrarTarjeta(numCasilla2);
-                }        
-                //jLabelFicha1.setLocation(30,635);
-            }
-
-            if(esquina2 == 3){
-                if (paso2 == 2){
-                    posicion_ficha2 = posicion_ficha2 - 10;
-                   // jLabelFicha1.setLocation(60,30);
-                    paso2 = 3;
-                }
-
-                if (posicion_ficha2 > 10){
-                    esquina2 = 4;
-                }else{
-                    jLabelFicha2.setLocation(60+(55*posicion_ficha2),30);
-                    mostrarTarjeta(numCasilla2);
-                }
-            }
-
-            if(esquina2 == 4){
-                if(paso2 == 3){
-                    posicion_ficha2 = posicion_ficha2 - 10;
-                   // jLabelFicha1.setLocation(40, 40);
-                    paso2 = 4;
-                }
-
-                if(posicion_ficha2 > 10){
-                    esquina2 = 5;
-                }else{
-                    jLabelFicha2.setLocation(635, 60+(55*posicion_ficha2));
-                    mostrarTarjeta(numCasilla2);
-                }         
-            }
-        }
-    }
-    
-    private void moverFicha3(){
-        if (turno == 3 && jugarDado == 3){
-            if (esquina3 == 1 || esquina3 == 5){
-                if (paso3 == 4 || paso3 == 1){
-                    posicion_ficha3 = posicion_ficha3 - 10;
-                    paso = 10;
-                }
-
-                if (posicion_ficha3 > 10){
-                    esquina3 = 2;
-                    paso3 = 1;
-                }else{
-                    jLabelFicha3.setLocation(620-(posicion_ficha3*56),635);
-                    mostrarTarjeta(numCasilla3);
-                }
-            }
-
-            if (esquina3 == 2){
-                if (paso3 == 1){
-                    posicion_ficha3 = posicion_ficha3 - 10;
-                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
-                    paso3 = 2;
-                }
-
-                if (posicion_ficha3 > 10){
-                    esquina3 = 3;
-                }else{
-                    jLabelFicha3.setLocation(30,635-(59*posicion_ficha3));
-                    mostrarTarjeta(numCasilla3);
-                }        
-                //jLabelFicha1.setLocation(30,635);
-            }
-
-            if(esquina3 == 3){
-                if (paso3 == 2){
-                    posicion_ficha3 = posicion_ficha3 - 10;
-                   // jLabelFicha1.setLocation(60,30);
-                    paso3 = 3;
-                }
-
-                if (posicion_ficha3 > 10){
-                    esquina3 = 4;
-                }else{
-                    jLabelFicha3.setLocation(60+(55*posicion_ficha3),30);
-                    mostrarTarjeta(numCasilla3);
-                }
-            }
-
-            if(esquina3 == 4){
-                if(paso3 == 3){
-                    posicion_ficha3 = posicion_ficha3 - 10;
-                   // jLabelFicha1.setLocation(40, 40);
-                    paso3 = 4;
-                }
-
-                if(posicion_ficha3 > 10){
-                    esquina3 = 5;
-                }else{
-                    jLabelFicha3.setLocation(635, 60+(55*posicion_ficha3));
-                    mostrarTarjeta(numCasilla3);
-                }         
-            }
-        }
-    }
-    
-    private void moverFicha4(){
-        if (turno == 4 && jugarDado == 4){
-            if (esquina4 == 1 || esquina4 == 5){
-                if (paso4 == 4 || paso4 == 1){
-                    posicion_ficha4 = posicion_ficha4 - 10;
-                    paso4 = 10;
-                }
-
-                if (posicion_ficha4 > 10){
-                    esquina4 = 2;
-                    paso4 = 1;
-                }else{
-                    jLabelFicha4.setLocation(620-(posicion_ficha4*56),635);
-                    mostrarTarjeta(numCasilla4);
-                }
-            }
-
-            if (esquina4 == 2){
-                if (paso4 == 1){
-                    posicion_ficha4 = posicion_ficha4 - 10;
-                    //jLabelFicha1.setLocation(30,635-(59*posicion_ficha1));
-                    paso4 = 2;
-                }
-
-                if (posicion_ficha4 > 10){
-                    esquina4 = 3;
-                }else{
-                    jLabelFicha4.setLocation(30,635-(59*posicion_ficha4));
-                    mostrarTarjeta(numCasilla4);
-                }        
-                //jLabelFicha1.setLocation(30,635);
-            }
-
-            if(esquina4 == 3){
-                if (paso4 == 2){
-                    posicion_ficha4 = posicion_ficha4 - 10;
-                   // jLabelFicha1.setLocation(60,30);
-                    paso4 = 3;
-                }
-
-                if (posicion_ficha4 > 10){
-                    esquina4 = 4;
-                }else{
-                    jLabelFicha4.setLocation(60+(55*posicion_ficha4),30);
-                    mostrarTarjeta(numCasilla4);
-                }
-            }
-
-            if(esquina4 == 4){
-                if(paso4 == 3){
-                    posicion_ficha4 = posicion_ficha4 - 10;
-                   // jLabelFicha1.setLocation(40, 40);
-                    paso4 = 4;
-                }
-
-                if(posicion_ficha4 > 10){
-                    esquina4 = 5;
-                }else{
-                    jLabelFicha4.setLocation(635, 60+(55*posicion_ficha4));
-                    mostrarTarjeta(numCasilla4);
-                }         
-            }
-        }
-    }
-    
     private void MoverFicha1(){
         switch(numCasilla1){
             
@@ -2449,11 +2302,11 @@ public class Tablero extends javax.swing.JFrame {
     private void pagarImpuesto(int numCasilla){
         JOptionPane.showMessageDialog(this, " Impuesto: Debes pagar una cuota por caer en esta casilla ");       
         if ((turno == 1 || turno ==2 || turno == 3 || turno == 4) && numCasilla == 38) {           
-            dineroJugadores[turno-1] = dineroJugadores[turno-1] - impuesto;
+            dineroJugadores[turno-1] = dineroJugadores[turno-1] - impuestoTasaLujo;
             PagarActualizar(); 
         }       
         if ((turno == 1 || turno ==2 || turno == 3 || turno == 4) && numCasilla == 4) {
-            dineroJugadores[turno-1] = dineroJugadores[turno-1] - impuesto*2;
+            dineroJugadores[turno-1] = dineroJugadores[turno-1] - impuestoCapital;
             PagarActualizar();
         }
     }
@@ -3100,28 +2953,28 @@ public class Tablero extends javax.swing.JFrame {
                 if (turno == 1){
                     JOptionPane.showMessageDialog(this, "Esta en la Carcel");
                     jLabelFicha1.setLocation(35, 635);
-                    dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - fianzaCarcel;
                     actualizarDinero();
                     mover1 = 0;          
                 }
                 if (turno == 2){
                     JOptionPane.showMessageDialog(this, "Esta en la Carcel");
                     jLabelFicha2.setLocation(35, 635);
-                    dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - fianzaCarcel;
                     actualizarDinero();
                     mover2 = 0;
                 }
                 if (turno == 3){
                     JOptionPane.showMessageDialog(this, "Esta en la Carcel");
                     jLabelFicha3.setLocation(35, 635);
-                    dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - fianzaCarcel;
                     actualizarDinero();
                     mover3 = 0;
                 }
                 if (turno == 4){
                     JOptionPane.showMessageDialog(this, "Esta en la Carcel");
                     jLabelFicha4.setLocation(35, 635);
-                    dineroJugadores[turno-1] = dineroJugadores[turno-1] -500;
+                    dineroJugadores[turno-1] = dineroJugadores[turno-1] - fianzaCarcel;
                     actualizarDinero();
                     mover4 = 0;
                 }          
@@ -3132,19 +2985,19 @@ public class Tablero extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Despueste de 3 turnos podras avanzar nuevamente y pagaras 500");
                 if (turno == 1){
                     jLabelFicha1.setLocation(35, 635);
-                    mover1 = -2;
+                    mover1 = esperaEnCarcel;
                 }
                 if (turno == 2){
                     jLabelFicha2.setLocation(35, 635);
-                    mover2 = -2;
+                    mover2 = esperaEnCarcel;
                 }
                 if (turno == 3){
                     jLabelFicha3.setLocation(35, 635);
-                    mover3 = -2;
+                    mover3 = -esperaEnCarcel;
                 }
                 if (turno == 4){
                     jLabelFicha4.setLocation(35, 635);
-                    mover4 = -2;
+                    mover4 = esperaEnCarcel;
                 }
             }
             
@@ -3186,25 +3039,25 @@ public class Tablero extends javax.swing.JFrame {
     private void recibeBonus(){
         if (numCasilla1 >= 40){
             numCasilla1 = numCasilla1 - 40;
-            dineroJugadores[0] = dineroJugadores[0] + 2000;
+            dineroJugadores[0] = dineroJugadores[0] + dineroPorVuelta;
             PagarActualizar();
             JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
         if (numCasilla2 >= 40){
             numCasilla2 = numCasilla2 - 40;
-            dineroJugadores[1] = dineroJugadores[1] + 2000;
+            dineroJugadores[1] = dineroJugadores[1] + dineroPorVuelta;
             PagarActualizar();
             JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
         if (numCasilla3 >= 40){
             numCasilla3 = numCasilla3 - 40;
-            dineroJugadores[2] = dineroJugadores[2] + 2000;
+            dineroJugadores[2] = dineroJugadores[2] + dineroPorVuelta;
             PagarActualizar();
             JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno);
         }
         if (numCasilla4 >= 40){
             numCasilla4 = numCasilla4 - 40;
-            dineroJugadores[3] = dineroJugadores[3] + 2000;
+            dineroJugadores[3] = dineroJugadores[3] + dineroPorVuelta;
             PagarActualizar();
             JOptionPane.showMessageDialog(this, "Has Recibido un Bonus De 2000 El jugador "+turno );
         }
@@ -3264,11 +3117,41 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     private void obtenerTurno(){
-        if (turno >= 4){
-            turno = 1;
-        }else{
-            turno = turno +1; 
+        boolean bandera=false;
+        
+        while(!bandera){
+            if (turno >= cantidadJugadores){
+                turno = 1;
+            }
+        
+            if(turno==1 && j1Eliminado)
+                turno++;
+
+            if(turno==2 && j2Eliminado)
+                turno++;
+
+            if(turno==3 && j3Eliminado)
+                turno++;
+
+            if(turno==4 && j4Eliminado)
+                turno++;
+            
+
+        
+            if(turno==1 && !j1Eliminado)
+                bandera=true;
+
+            if(turno==2 && !j2Eliminado)
+                bandera=true;
+
+            if(turno==3 && !j3Eliminado)
+                bandera=true;
+
+            if(turno==4 && j4Eliminado)
+                bandera=true;
+            
         }
+        
     }
     
     private void eliminarJugador(){
